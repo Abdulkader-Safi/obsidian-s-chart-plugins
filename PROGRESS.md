@@ -9,7 +9,7 @@ Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
 - M2 rendering and theme: done, Minimal and AnuPpuccin need Safi
 - M3 palettes and settings: done
 - M4 properties source: done
-- M5 polish and release: not started
+- M5 polish and release: built. Not released: tagging 0.1.0 and the `obsidian-releases` PR wait for Safi's OK, and the theme pass needs Minimal and AnuPpuccin
 
 ## M0 results (2026-10-20)
 
@@ -128,10 +128,64 @@ Checked in the live Obsidian with the 30 notes in `test-vault/daily/`:
 
 Acceptance boxes ticked in M4: FR-SRC-01, FR-SRC-02, the 2,000-note half of NFR-04.
 
+## M5 results (2026-10-20)
+
+- The "Insert chart" command (`s-charts:insert-chart`, no default hotkey) inserts the sample bar block. Run in a new empty note, it drew a chart with 2 series. That note, `S-Charts test/Insert chart.md`, stays in the vault.
+- Phone: with Obsidian's mobile emulation at 390 x 844, charts were 342 px wide with no horizontal scroll.
+- Guideline scan of `src/` and `main.js`: no `innerHTML`, `eval`, `fetch`, `requestUrl`, inline `.style`, `console.log` or `localStorage`. The only console output is `console.error` when a render throws.
+- `main.js` is 216 KB minified, under the 250 KB limit.
+- `README.md` is written in full. No GIFs yet: they need a screen recording.
+- The release workflow (`.github/workflows/release.yml`) is the one from Property Reminders: on a tag it builds and attaches `main.js`, `manifest.json` and `styles.css` to a draft release. No tag has been pushed.
+- Not built: "Copy as image" (FR-UX-03, Could).
+
+## Acceptance criteria
+
+POC:
+
+- [x] FR-BLOCK-01 the Monthly revenue example renders as a bar chart with 3 groups and 2 series
+- [x] FR-BLOCK-02 a new column adds a series named after its header
+- [x] FR-RENDER-01 the same table renders as bar, line, area, pie and doughnut
+- [x] FR-RENDER-03 editing a number redraws the chart in reading view and live preview
+- [x] FR-THEME-01 theme colours in order, axis text, grid and font from the theme (default, SIL-UI and Safi-V2; Minimal not checked)
+- [x] FR-THEME-02 dark mode recolours open charts (67 ms)
+- [x] FR-UX-04 a 3-chart note exports to PDF fully drawn and sharp (checked by rendering the PDF at 432 dpi, see check 2)
+
+MVP:
+
+- [x] FR-BLOCK-03 every header key works; unknown keys warn with a suggestion
+- [x] FR-BLOCK-04 all number formats parse; empty cells leave gaps
+- [x] FR-BLOCK-05 `colors:` overrides the palette
+- [x] FR-RENDER-02 scatter and radar render
+- [x] FR-RENDER-04 tooltip shows label, series and formatted value (checked through the tooltip callback; tap on a real phone not checked)
+- [x] FR-RENDER-05 charts fill the width and redraw on resize
+- [x] FR-PAL-01 palettes can be created, renamed, edited, reordered and deleted with confirmation, and survive a restart
+- [x] FR-PAL-02 `palette: <name>` colours in order and loops
+- [x] FR-PAL-03 unknown palette falls back with the notice
+- [x] FR-PAL-04 the default palette applies to blocks without a palette key
+- [x] FR-PAL-05 editing a palette redraws open charts
+- [x] FR-SRC-01 properties charts by tag and folder, sorted by x, skipping notes without x
+- [x] FR-SRC-02 a changed property updates the chart, debounced 500 ms
+- [x] FR-UX-01 each listed mistake shows a specific message with its line number
+- [x] FR-UX-02 "Insert chart" inserts a working sample block
+- [x] FR-SET-01 all settings survive a restart
+- [x] NFR-01 12x4 chart in about 4 ms; `main.js` 216 KB. Startup cost and "10 charts without stutter" not measured separately
+- [x] NFR-02 no network code and no `innerHTML` in the source or the bundle. DevTools network check not run
+- [ ] NFR-03 works with networking off (nothing uses the network, but not tried with Wi-Fi off)
+- [x] NFR-04 500 x 8 redraws in 50 ms; 2,000 notes build in about 55 ms
+- [ ] NFR-05 desktop checked on macOS; phone checked in emulation only, not on a real phone
+- [ ] NFR-06 role and label on each chart, locale numbers, Arabic text checked. A screen-reader pass of the settings tab for WCAG 2.2 AA is not done
+- [ ] NFR-07 self-review done; the `obsidian-releases` bot runs only on the PR
+- [ ] NFR-08 Minimal and AnuPpuccin not checked
+
 ## Checks for Safi
 
-1. Minimal and AnuPpuccin, light and dark: open a chart note in each and check the colours look right (M5, NFR-08).
-2. Open a PDF export at 200% in Preview and confirm it looks the same as the dumps described above.
+1. Themes (NFR-08, FR-THEME-01): install Minimal and AnuPpuccin, open `S-Charts test/types/bar.md` and `Palettes.md` in each, light and dark, and check the colours look right. In Minimal, set a custom accent: series 1 should follow it.
+2. PDF (FR-UX-04): export `S-Charts test/PDF export.md` and open it at 200% in Preview.
+3. Phone (NFR-05, FR-RENDER-04): open a chart on iOS or Android and tap a bar. The tooltip should show.
+4. Offline (NFR-03): turn Wi-Fi off and open the test notes.
+5. Screen reader (NFR-06): go through the settings tab with VoiceOver.
+6. Release: when you are happy, say so and I will tag 0.1.0 (the workflow makes a draft release). The PR to `obsidian-releases` is yours to open.
+7. Folder rename: the plugin folder is `obsidian-s-chart-plugins` and the ID is `s-charts`. Obsidian loads it anyway. To rename it, quit Obsidian, rename the folder to `s-charts`, and reopen.
 
 ## Decisions and deviations
 
@@ -148,4 +202,5 @@ Acceptance boxes ticked in M4: FR-SRC-01, FR-SRC-02, the 2,000-note half of NFR-
 - 2026-10-20: "Loading notes" after 200 ms is not built. The build is synchronous and takes about 55 ms at 2,000 notes, so a 200 ms timer could never fire before the chart is drawn. Showing it would mean splitting the build into chunks, which costs more code than the case is worth. Revisit if someone reports a slow vault.
 - 2026-10-20: a tag source also matches nested tags (`#daily` matches `#daily/work`), the same as Obsidian's tag search. Property names match without case.
 - 2026-10-20: the folder test in `Properties source.md` uses `S-Charts test/daily`, so `test-vault/` must be copied into a vault folder named `S-Charts test`.
+- 2026-10-20: "Copy as image" (FR-UX-03, Could) is not built.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

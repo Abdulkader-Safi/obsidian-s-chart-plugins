@@ -1,92 +1,128 @@
-# Obsidian Sample Plugin
+# S-Charts
 
-This is a sample plugin for Obsidian (https://obsidian.md).
+An Obsidian plugin that draws charts from a markdown table inside a code block, or from the properties of many notes. Charts use your theme's colours and redraw when you switch theme or light and dark mode.
 
-This project uses TypeScript to provide type checking and documentation.
-The repo depends on the latest plugin API (obsidian.d.ts) in TypeScript Definition format, which contains TSDoc comments describing what it does.
+The data stays plain text in your note. The plugin never edits notes and makes no network requests.
 
-This sample plugin demonstrates some of the basic functionality the plugin API can do.
+Status: in development and not yet released. Progress is tracked in [PROGRESS.md](PROGRESS.md).
 
-- Adds a ribbon icon, which shows a Notice when clicked.
-- Adds a command "Open modal (simple)" which opens a Modal.
-- Adds a plugin setting tab to the settings page.
-- Registers a global click event and outputs a Notice on click.
-- Registers a global interval which logs 'setInterval' to the console.
+## Your first chart
 
-## First time developing plugins?
+Run **Insert chart** from the command palette, or type this into a note:
 
-Quick starting guide for new plugin devs:
+````markdown
+```s-chart
+type: bar
+title: Monthly revenue
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+```
+````
 
-- Check if [someone already developed a plugin for what you want](https://obsidian.md/plugins)! There might be an existing plugin similar enough that you can partner up with.
-- Make a copy of this repo as a template with the "Use this template" button (login to GitHub if you don't see it).
-- Clone your repo to a local development folder. For convenience, you can place this folder in your `.obsidian/plugins/your-plugin-name` folder.
-- Install NodeJS, then run `npm i` in the command line under your repo folder.
-- Run `npm run dev` to compile your plugin from `src/main.ts` to `main.js`.
-- Make changes to `src/main.ts` (or create new `.ts` files). Those changes should be automatically compiled into `main.js`.
-- Reload Obsidian to load the new version of your plugin.
-- Enable plugin in settings window.
-- For updates to the Obsidian API run `npm update` in the command line under your repo folder.
+The lines above `---` set up the chart. The table below it is the data. The first column holds the labels, and each other column is one series, named by its header. Add a `Profit` column and you get a third series.
 
-## Releasing new releases
+To change a chart in live preview, hover over it and select the `</>` button in its top-right corner, or move the cursor into it with the arrow keys. Reading view has no edit button for rendered blocks, so switch to live preview first.
 
-- Update your `manifest.json` with your new version number, such as `1.0.1`, and the minimum Obsidian version required for your latest release.
-- Update your `versions.json` file with `"new-plugin-version": "minimum-obsidian-version"` so older versions of Obsidian can download an older version of your plugin that's compatible.
-- Create new GitHub release using your new version number as the "Tag version". Use the exact version number, don't include a prefix `v`. See here for an example: https://github.com/obsidianmd/obsidian-sample-plugin/releases
-- Upload the files `manifest.json`, `main.js`, `styles.css` as binary attachments. Note: The manifest.json file must be in two places, first the root path of your repository and also in the release.
-- Publish the release.
+## Chart types
 
-> You can simplify the version bump process by running `npm version patch`, `npm version minor` or `npm version major` after updating `minAppVersion` manually in `manifest.json`.
-> The command will bump version in `manifest.json` and `package.json`, and add the entry for the new version to `versions.json`
+`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`.
 
-## Adding your plugin to the community plugin list
+- Pie and doughnut use the first series and say so when the table has more.
+- Scatter needs numbers in the first column: it is the x axis.
 
-- Check the [plugin guidelines](https://docs.obsidian.md/Plugins/Releasing/Plugin+guidelines).
-- Publish an initial version.
-- Make sure you have a `README.md` file in the root of your repo.
-- Make a pull request at https://github.com/obsidianmd/obsidian-releases to add your plugin.
+## Settings lines
 
-## How to use
+| Key | Values | Default |
+|-----|--------|---------|
+| `type` | one of the chart types | required |
+| `title` | any text | none |
+| `palette` | a palette name from settings | the default palette |
+| `colors` | hex colours, comma separated: `#e11d48, #0ea5e9` | none |
+| `height` | pixels, 120 to 1200 | 300, or the setting |
+| `stacked` | `true` or `false` | `false` |
+| `horizontal` | `true` or `false`, bar charts only | `false` |
+| `legend` | `top`, `bottom` or `none` | `top`, or `none` for one series |
+| `x-label`, `y-label` | axis titles | none |
+| `source`, `x`, `y` | see "Charts from properties" | none |
 
-- Clone this repo.
-- Make sure your NodeJS is at least v18 (`node --version`).
-- `npm i` to install dependencies.
-- `npm run dev` to start compilation in watch mode.
+A key the plugin doesn't know shows a warning under the chart, with a suggestion when it is close to a real one: `pallet` gives "did you mean palette?". The chart still draws.
 
-## Manually installing the plugin
+## Numbers
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to your vault `VaultFolder/.obsidian/plugins/your-plugin-id/`.
+Cells can hold `4200`, `4,200`, `$4,200`, `KWD 4,200`, `42%` or `-3.5`. Currency symbols, three-letter currency codes, thousands commas and `%` are dropped. An empty cell leaves a gap in the series rather than drawing a zero.
 
-## Improve code quality with eslint
+Tooltips format numbers for your system's locale, so hovering Feb in the example shows "Feb, Revenue: 5,100".
 
-- [ESLint](https://eslint.org/) is a tool that analyzes your code to quickly find problems. You can run ESLint against your plugin to find common bugs and ways to improve your code.
-- This project already has eslint preconfigured, you can invoke a check by running`npm run lint`
-- Together with a custom eslint [plugin](https://github.com/obsidianmd/eslint-plugin) for Obsidan specific code guidelines.
-- A GitHub action is preconfigured to automatically lint every commit on all branches.
+## Colours
 
-## Funding URL
+With nothing set, series take the theme's accent colour first, then the theme's other named colours in a fixed order (blue, green, orange, purple, red, cyan, yellow, pink). Axis text, grid lines and the font come from the theme too.
 
-You can include funding URLs where people who use your plugin can financially support it.
+To use your own colours:
 
-The simple way is to set the `fundingUrl` field to your link in your `manifest.json` file:
+1. Open **Settings → S-Charts** and select **Add palette**.
+2. Name it, for example `brand`, and set each colour with the picker or a hex code. A palette holds 1 to 12 colours, and a colour can also be a theme variable such as `var(--color-accent)`.
+3. Add `palette: brand` to a chart.
 
-```json
-{
-	"fundingUrl": "https://buymeacoffee.com"
-}
+Series take the palette's colours in order and start again from the first when there are more series than colours. Pick a palette as **Default palette** to colour every chart that has no `palette` line. A `colors:` line overrides both for one chart.
+
+A palette name that doesn't exist falls back to theme colours with the notice "Palette 'x' not found, using theme colours."
+
+Editing a palette redraws the open charts that use it.
+
+## Charts from properties
+
+Leave out the table and point the chart at notes instead:
+
+````markdown
+```s-chart
+type: line
+title: Weight
+source: "#daily"
+x: date
+y: weight
+```
+````
+
+- `source` is a tag such as `"#daily"` (nested tags like `#daily/work` count) or a folder path such as `Journal/2026`.
+- `x` is the property for the x axis. Rows are sorted by it, so dates in `YYYY-MM-DD` form come out in order.
+- `y` is one property, or several separated by commas: `y: weight, steps`.
+
+Notes without the `x` property are skipped, and the chart says how many. Change a property in any matching note and the chart updates within half a second.
+
+## When something is wrong
+
+A block the plugin can't read shows the line and the problem instead of a chart, for example "Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar." It never leaves a blank space.
+
+## PDF export
+
+Charts come out fully drawn in **Export to PDF**, scaled to the page width, at twice the screen's pixel density. Animation is always off while exporting.
+
+## Settings
+
+The settings tab holds the default palette (Theme, or one of your palettes), the default height (120 to 1200 pixels, 300 to start), an animations switch, and the palette editor. Deleting a palette asks first.
+
+## Privacy
+
+Everything runs on your device. No network requests, no telemetry. The plugin reads your notes through Obsidian and writes only its own settings file.
+
+## Development
+
+```bash
+npm install
+npm run dev     # watch build
+npm test        # unit tests, needs Node 22.18 or later
+npm run lint
+npm run build
 ```
 
-If you have multiple URLs, you can also do:
+`test-vault/` holds a note per chart type, a note per error, 30 dated notes for properties charts, a 500-row stress note and a PDF test note. Copy it into a vault folder named `S-Charts test`. `node tests/make-notes.mjs <folder> <count>` writes more dated notes.
 
-```json
-{
-	"fundingUrl": {
-		"Buy Me a Coffee": "https://buymeacoffee.com",
-		"GitHub Sponsor": "https://github.com/sponsors",
-		"Patreon": "https://www.patreon.com/"
-	}
-}
-```
+The design is written up in [Docs/spec](Docs/spec). Start with [06-build-spec.md](Docs/spec/06-build-spec.md).
 
-## API Documentation
+## Licence
 
-See https://docs.obsidian.md
+MIT

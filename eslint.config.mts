@@ -8,6 +8,7 @@ export default defineConfig(
 		'dist',
 		'esbuild.config.mjs',
 		'version-bump.mjs',
+		'test-vault',
 		'versions.json',
 		'main.js',
 		'package.json',
@@ -29,4 +30,12 @@ export default defineConfig(
 		},
 	},
 	...obsidianmd.configs.recommended,
+	{
+		// Tests run under Node, never inside Obsidian, and `test()` handles its own promise.
+		files: ['tests/**/*.ts'],
+		rules: {
+			'obsidianmd/no-nodejs-modules': 'off',
+			'@typescript-eslint/no-floating-promises': 'off',
+		},
+	},
 );

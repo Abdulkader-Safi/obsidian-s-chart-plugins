@@ -1,6 +1,6 @@
 # Progress
 
-Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
+Build log for S-Charts. The plan is `spec/06-build-spec.md`.
 
 ## Milestones
 
@@ -203,4 +203,6 @@ MVP:
 - 2026-10-20: a tag source also matches nested tags (`#daily` matches `#daily/work`), the same as Obsidian's tag search. Property names match without case.
 - 2026-10-20: the folder test in `Properties source.md` uses `S-Charts test/daily`, so `test-vault/` must be copied into a vault folder named `S-Charts test`.
 - 2026-10-20: "Copy as image" (FR-UX-03, Could) is not built.
+- 2026-10-20: the spec moved from `Docs/spec/` to `spec/`. `docs/` is now the GitHub Pages site, at Safi's request, and macOS treats `Docs` and `docs` as one folder. Keeping the spec out of `docs/` also keeps it off the public site.
+- 2026-10-20: `test-vault/Gallery.md` holds one chart per type. The README and site images were captured from it in Obsidian's default theme, light and dark, at 2x, then tiled 3 to a row.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

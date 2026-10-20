@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>S-Charts for Obsidian</title>
+	<meta name="description" content="Draw charts in Obsidian from a markdown table or from note properties, in your theme's colours.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="top">
+		<a class="brand" href="#">S-Charts</a>
+		<nav>
+			<a href="#types">Chart types</a>
+			<a href="#install">Install</a>
+			<a href="#write">Write a chart</a>
+			<a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+		</nav>
+	</header>
+
+	<main>
+		<section class="hero">
+			<div class="hero-text">
+				<h1>Type a table. Get a chart.</h1>
+				<p class="lede">S-Charts is an Obsidian plugin that draws a chart from a markdown table in your note, or from the properties of many notes. It uses your theme's colours and redraws when you switch to dark mode.</p>
+				<p class="hero-links">
+					<a class="button" href="#install">Install the plugin</a>
+					<a class="quiet" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">Source on GitHub</a>
+				</p>
+			</div>
+			<div class="hero-demo">
+				<figure class="note">
+					<figcaption>In your note</figcaption>
+<pre><code>```s-chart
+type: bar
+title: Bar
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre>
+				</figure>
+				<figure class="result">
+					<figcaption>What you see</figcaption>
+					<picture>
+						<source srcset="img/hero-dark.png" media="(prefers-color-scheme: dark)">
+						<img src="img/hero-light.png" width="1184" height="744" alt="A bar chart of revenue and costs for January to April.">
+					</picture>
+				</figure>
+			</div>
+		</section>
+
+		<section id="types">
+			<h2>Chart types</h2>
+			<p>Bar, line, area, pie, doughnut, scatter and radar. Bars can be stacked or turned on their side. Each chart below is drawn by the plugin in Obsidian's default theme.</p>
+			<picture class="gallery">
+				<source srcset="img/gallery-dark.png" media="(prefers-color-scheme: dark)">
+				<img src="img/gallery-light.png" width="1872" height="1203" alt="Nine example charts: bar, line, area, pie, doughnut, scatter, radar, stacked horizontal bar, and a line chart built from note properties.">
+			</picture>
+		</section>
+
+		<section id="install">
+			<h2>Install</h2>
+			<p>S-Charts is not in Obsidian's community plugin list yet. Until it is, install it by hand:</p>
+			<ol class="steps">
+				<li>Download <code>main.js</code>, <code>manifest.json</code> and <code>styles.css</code> from the <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/releases">latest release</a>.</li>
+				<li>In your vault, make the folder <code>.obsidian/plugins/s-charts/</code> and put the three files in it.</li>
+				<li>Restart Obsidian, open <strong>Settings → Community plugins</strong>, and turn on S-Charts.</li>
+				<li>Open a note and run <strong>Insert chart</strong> from the command palette. A sample chart appears.</li>
+			</ol>
+			<p>It works on desktop and mobile, needs Obsidian 1.5.0 or later, and never connects to the internet.</p>
+		</section>
+
+		<section id="write">
+			<h2>Write a chart</h2>
+			<p>A chart is a code block with the language <code>s-chart</code>. Settings go above a <code>---</code> line, and the table goes below it. The first column holds the labels. Every other column is one series, named by its header.</p>
+			<div class="code">
+				<button class="copy" type="button">Copy</button>
+<pre><code>```s-chart
+type: line
+title: Monthly revenue
+legend: bottom
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+```</code></pre>
+			</div>
+
+			<h3>Settings lines</h3>
+			<div class="table-wrap">
+				<table>
+					<thead><tr><th>Key</th><th>What it does</th></tr></thead>
+					<tbody>
+						<tr><td><code>type</code></td><td>Required. <code>bar</code>, <code>line</code>, <code>area</code>, <code>pie</code>, <code>doughnut</code>, <code>scatter</code> or <code>radar</code>.</td></tr>
+						<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+						<tr><td><code>palette</code></td><td>A palette you made in settings.</td></tr>
+						<tr><td><code>colors</code></td><td>Hex colours for this chart only: <code>#e11d48, #0ea5e9</code>.</td></tr>
+						<tr><td><code>height</code></td><td>Pixels, 120 to 1200. 300 by default.</td></tr>
+						<tr><td><code>stacked</code></td><td><code>true</code> stacks bars and areas.</td></tr>
+						<tr><td><code>horizontal</code></td><td><code>true</code> turns bars on their side.</td></tr>
+						<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>.</td></tr>
+						<tr><td><code>x-label</code>, <code>y-label</code></td><td>Axis titles.</td></tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h3>Numbers</h3>
+			<p>Cells can hold <code>4200</code>, <code>4,200</code>, <code>$4,200</code>, <code>KWD 4,200</code>, <code>42%</code> or <code>-3.5</code>. An empty cell leaves a gap in the line instead of a zero.</p>
+
+			<h3>Mistakes</h3>
+			<p>A block the plugin can't read shows the line and the problem in place of the chart, for example <q>Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</q> A misspelt key such as <code>pallet</code> gets <q>did you mean palette?</q> and the chart still draws.</p>
+
+			<h3>Editing a chart</h3>
+			<p>In live preview, hover over a chart and select the <code>&lt;/&gt;</code> button in its top-right corner to see its text again.</p>
+		</section>
+
+		<section id="colours">
+			<h2>Colours and palettes</h2>
+			<p>With nothing set, the first series takes your theme's accent colour and the rest follow the theme's other colours. Axis text, grid lines and the font come from the theme as well, so a chart looks at home in any theme, light or dark.</p>
+			<p>To use your brand colours, open <strong>Settings → S-Charts</strong>, select <strong>Add palette</strong>, give it a name and pick up to 12 colours. Then add <code>palette: brand</code> to a chart, or make it the default palette for every chart. Editing a palette redraws the charts that use it.</p>
+		</section>
+
+		<section id="properties">
+			<h2>Charts from note properties</h2>
+			<p>Leave out the table and point the chart at notes instead. This draws one point per daily note, sorted by date:</p>
+			<div class="code">
+				<button class="copy" type="button">Copy</button>
+<pre><code>```s-chart
+type: line
+title: Weight
+source: "#daily"
+x: date
+y: weight
+```</code></pre>
+			</div>
+			<p><code>source</code> is a tag or a folder path. <code>y</code> can list several properties, separated by commas. Change a property in any of those notes and the chart updates within half a second.</p>
+		</section>
+
+		<section id="more">
+			<h2>PDF export and privacy</h2>
+			<p>Charts come out fully drawn and sharp in Obsidian's <strong>Export to PDF</strong>, scaled to the page.</p>
+			<p>The plugin runs on your device only. It makes no network requests, collects nothing, and never edits your notes. Your data stays as plain text you can read without the plugin.</p>
+		</section>
+	</main>
+
+	<footer>
+		<p>S-Charts is free and MIT licensed. Made by <a href="https://github.com/Abdulkader-Safi">Abdulkader Safi</a>. Found a bug? <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/issues">Open an issue</a>.</p>
+	</footer>
+
+	<script>
+		for (const button of document.querySelectorAll('.copy')) {
+			button.addEventListener('click', async () => {
+				const code = button.parentElement.querySelector('code').textContent;
+				try {
+					await navigator.clipboard.writeText(code);
+					button.textContent = 'Copied';
+				} catch {
+					button.textContent = 'Select and copy';
+				}
+				setTimeout(() => { button.textContent = 'Copy'; }, 1600);
+			});
+		}
+	</script>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # S-Charts
 
+See how it works and how to install it: **[abdulkader-safi.github.io/obsidian-s-chart-plugins](https://abdulkader-safi.github.io/obsidian-s-chart-plugins/)**
+
 An Obsidian plugin that draws charts from a markdown table inside a code block, or from the properties of many notes. Charts use your theme's colours and redraw when you switch theme or light and dark mode.
 
 The data stays plain text in your note. The plugin never edits notes and makes no network requests.
@@ -29,7 +31,12 @@ To change a chart in live preview, hover over it and select the `</>` button in 
 
 ## Chart types
 
-`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`.
+`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`. Every chart below was drawn by the plugin in Obsidian's default theme, from the notes in [test-vault/Gallery.md](test-vault/Gallery.md).
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/img/gallery-dark.png">
+  <img src="docs/img/gallery-light.png" alt="Nine example charts: bar, line, area, pie, doughnut, scatter, radar, stacked horizontal bar, and a line chart built from note properties.">
+</picture>
 
 - Pie and doughnut use the first series and say so when the table has more.
 - Scatter needs numbers in the first column: it is the x axis.
@@ -121,7 +128,7 @@ npm run build
 
 `test-vault/` holds a note per chart type, a note per error, 30 dated notes for properties charts, a 500-row stress note and a PDF test note. Copy it into a vault folder named `S-Charts test`. `node tests/make-notes.mjs <folder> <count>` writes more dated notes.
 
-The design is written up in [Docs/spec](Docs/spec). Start with [06-build-spec.md](Docs/spec/06-build-spec.md).
+The site is the static page in [docs/](docs), served by GitHub Pages from the `master` branch. The design is written up in [spec](spec). Start with [06-build-spec.md](spec/06-build-spec.md).
 
 ## Licence
 

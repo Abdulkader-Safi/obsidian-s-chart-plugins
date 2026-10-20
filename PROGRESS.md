@@ -9,7 +9,7 @@ Build log for S-Charts. The plan is `spec/06-build-spec.md`.
 - M2 rendering and theme: done, Minimal and AnuPpuccin need Safi
 - M3 palettes and settings: done
 - M4 properties source: done
-- M5 polish and release: built. Not released: tagging 0.1.0 and the `obsidian-releases` PR wait for Safi's OK, and the theme pass needs Minimal and AnuPpuccin
+- M5 polish and release: done. 0.5.0 released on 2026-10-20 at Safi's request, for submission to community.obsidian.md. The Minimal and AnuPpuccin theme pass is still open
 
 ## M0 results (2026-10-20)
 
@@ -137,6 +137,16 @@ Acceptance boxes ticked in M4: FR-SRC-01, FR-SRC-02, the 2,000-note half of NFR-
 - `README.md` is written in full. No GIFs yet: they need a screen recording.
 - The release workflow (`.github/workflows/release.yml`) is the one from Property Reminders: on a tag it builds and attaches `main.js`, `manifest.json` and `styles.css` to a draft release. No tag has been pushed.
 - Not built: "Copy as image" (FR-UX-03, Could).
+
+## Release 0.5.0 (2026-10-20)
+
+Safi asked for 0.5.0 (not 0.1.0) so the plugin can be submitted to community.obsidian.md.
+
+- Version set in `package.json`, `manifest.json` and `versions.json` (`"0.5.0": "1.5.0"`).
+- CI lint was failing since the docs site was added: ESLint tried to parse `docs/`, `site/` and `scripts/`, which are not plugin code. They are now ignored. Lint, the 30 tests and the build pass.
+- GitHub repo description and topics set with `gh`.
+- Tag `0.5.0` pushed; the release workflow builds and attaches `main.js`, `manifest.json` and `styles.css`.
+- Still open from the checks list: Minimal and AnuPpuccin, a real phone, networking off, a screen-reader pass.
 
 ## Acceptance criteria
 

@@ -6,7 +6,7 @@ An Obsidian plugin that draws charts from a markdown table inside a code block, 
 
 The data stays plain text in your note. The plugin never edits notes and makes no network requests.
 
-Status: in development and not yet released. Progress is tracked in [PROGRESS.md](PROGRESS.md).
+Status: 0.5.0 is the first public release. Progress is tracked in [PROGRESS.md](PROGRESS.md).
 
 ## Your first chart
 

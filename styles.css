@@ -1,6 +1,16 @@
 .s-chart {
 	position: relative;
-	height: 300px;
+	height: var(--s-chart-height, 300px);
+	width: 100%;
+}
+
+.s-chart.is-printed {
+	height: auto;
+}
+
+.s-chart-print {
+	display: block;
+	width: 100%;
 }
 
 .s-chart-notice,
@@ -18,4 +28,13 @@
 	border: 1px solid var(--background-modifier-error);
 	border-radius: var(--radius-s);
 	font-family: var(--font-monospace);
+}
+
+.s-chart-label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
 }

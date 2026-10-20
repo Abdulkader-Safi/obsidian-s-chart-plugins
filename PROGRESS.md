@@ -6,7 +6,7 @@ Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
 
 - M0 de-risk: done, two checks need Safi (see "Checks for Safi")
 - M1 scaffold and parser: done
-- M2 rendering and theme: not started
+- M2 rendering and theme: done, Minimal and AnuPpuccin need Safi
 - M3 palettes and settings: not started
 - M4 properties source: not started
 - M5 polish and release: not started
@@ -66,6 +66,25 @@ Live preview shows a code block as source while the cursor is inside it and rend
 
 Acceptance boxes ticked in M1: FR-BLOCK-03 (parsing and the warning), FR-BLOCK-04 (parsing), FR-UX-01. FR-BLOCK-01, 02 and 05 parse correctly but are ticked in M2, when the chart draws them as specified.
 
+## M2 results (2026-10-20)
+
+Built: `config.ts`, `theme.ts`, `colors.ts` (theme colours only for now, palettes in M3), `chart-block.ts` and the block registry with the `css-change` redraw. `main.js` is 202 KB minified.
+
+Checked in the live Obsidian, using the notes in `test-vault/types/`:
+
+- All seven types render in reading view: bar, line, area, pie, doughnut, scatter and radar. Stacked, horizontal, legend at the bottom, axis titles and height all apply.
+- Pie and doughnut with two series draw the first and show "Pie charts show the first series only (Revenue)."
+- Live preview: changing Feb from 5100 to 9999 in the editor redrew the chart with the new value.
+- Toggling dark mode recoloured the open chart in 67 ms (accent `hsl(84, 100%, 21%)` to `hsl(73, 86%, 57%)` in SIL-UI).
+- Splitting the pane shrank a chart from 1600 to 1331 px wide, and it grew back when the split closed. No horizontal scroll.
+- Tooltip for Feb/Revenue reads "Feb, Revenue: 5,100".
+- Timing: a 12-row, 4-series chart renders in about 4 ms (first run 7 ms). The 500 x 8 stress note redraws in 50 ms.
+- PDF: the 3-chart note and the stress note exported fully drawn, fitting the page, and sharp at 432 dpi.
+- `colors: #e11d48, #0ea5e9` colours the two series red and blue. Arabic titles, labels and series names draw right to left.
+- Typing lag (from M0): with 4 ms per chart, no debounce is needed.
+
+Acceptance boxes ticked in M2: FR-BLOCK-01, FR-BLOCK-02, FR-BLOCK-05, FR-RENDER-01 to 05, FR-THEME-01 (default theme and the installed themes), FR-THEME-02, FR-UX-04 (checked from the rendered PDF, see check 2 below), NFR-06 except the settings tab, which comes in M3.
+
 ## Checks for Safi
 
 1. Minimal and AnuPpuccin, light and dark: open a chart note in each and check the colours look right (M5, NFR-08).
@@ -78,4 +97,7 @@ Acceptance boxes ticked in M1: FR-BLOCK-03 (parsing and the warning), FR-BLOCK-0
 - 2026-10-20: `authorUrl` is the GitHub profile, the same as Property Reminders.
 - 2026-10-20: the header is read line by line, not with `parseYaml`. YAML treats ` #` as a comment, so `colors: #e11d48, #0ea5e9` (the spec's own example) came back empty, and `parseYaml` gives no line numbers for the FR-UX-01 messages. A side effect: `source: #daily` works without quotes, so the "quote the #" hint from M4 is not needed. `parse(source)` takes one argument.
 - 2026-10-20: the unknown-key suggestion allows up to half the key's length in edits. `pallet` to `palette` is 3 edits, so a fixed limit of 2 missed the spec's own example.
+- 2026-10-20: the chart's accessible name uses `aria-labelledby` and a visually hidden span, not `aria-label`. Obsidian shows every `aria-label` as a hover tooltip, so the description covered the chart on hover. Screen readers read the same text.
+- 2026-10-20: lines with more than 50 points hide their dots. At 500 rows the dots merged into one thick line.
+- 2026-10-20: `colors.ts` with `resolveColors` was written in M2, because rendering needs the theme colour list. Palette tests come in M3.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

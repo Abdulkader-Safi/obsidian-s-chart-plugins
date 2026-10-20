@@ -14,6 +14,15 @@ export function isPaletteName(value: string): boolean {
 	return PALETTE_NAME.test(value);
 }
 
+/** Why a palette name can't be used, or undefined when it can. `index` is the palette being renamed. */
+export function paletteNameError(name: string, palettes: Palette[], index: number): string | undefined {
+	if (!isPaletteName(name)) return 'Use 1 to 32 letters, numbers, - or _.';
+	if (name.toLowerCase() === 'theme') return '"theme" is reserved for the theme colours.';
+	const n = name.toLowerCase();
+	if (palettes.some((p, i) => i !== index && p.name.toLowerCase() === n)) return `There is already a palette called "${name}".`;
+	return undefined;
+}
+
 export function findPalette(palettes: Palette[], name: string): Palette | undefined {
 	const n = name.toLowerCase();
 	return palettes.find((p) => p.name.toLowerCase() === n);

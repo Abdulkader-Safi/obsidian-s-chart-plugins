@@ -7,7 +7,7 @@ Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
 - M0 de-risk: done, two checks need Safi (see "Checks for Safi")
 - M1 scaffold and parser: done
 - M2 rendering and theme: done, Minimal and AnuPpuccin need Safi
-- M3 palettes and settings: not started
+- M3 palettes and settings: done
 - M4 properties source: not started
 - M5 polish and release: not started
 
@@ -85,6 +85,32 @@ Checked in the live Obsidian, using the notes in `test-vault/types/`:
 
 Acceptance boxes ticked in M2: FR-BLOCK-01, FR-BLOCK-02, FR-BLOCK-05, FR-RENDER-01 to 05, FR-THEME-01 (default theme and the installed themes), FR-THEME-02, FR-UX-04 (checked from the rendered PDF, see check 2 below), NFR-06 except the settings tab, which comes in M3.
 
+## M3 results (2026-10-20)
+
+Built: `settings.ts` with `migrate()`, `settings-tab.ts`, `confirm-modal.ts`, palette name and colour checks in `colors.ts`, and 12 tests in `tests/colors.test.ts` (28 in all). `npm test`, `npm run lint` and `npm run build` pass.
+
+The tab follows Property Reminders: the rows are described once, handed to `getSettingDefinitions()` on Obsidian 1.13.0 and later, and drawn by hand on older versions.
+
+Checked in the live Obsidian by driving the settings tab from code, starting with no palettes:
+
+- "No palettes yet" shows. "Add palette" adds `palette-1` with one grey colour.
+- The name `bad name` is marked and not saved. `dsrpt` is saved. A second palette named `DSRPT` shows "There is already a palette called "DSRPT"." and is not saved.
+- `#7853D5` and `#2E2A3B` typed into the hex fields are saved as typed and move the colour pickers. `#zz` is marked and not saved.
+- `palette: dsrpt` on a 3-series bar gives `#7853D5, #2E2A3B, #7853D5`. `palette: nope` shows "Palette 'nope' not found, using theme colours."
+- Changing colour 1 to `#e11d48` recoloured the chart behind the settings window at once.
+- Move earlier and move later reorder the colours.
+- Default palette set to dsrpt turned the block with no palette line dsrpt colours.
+- Delete asks first. Cancel keeps the palette, Delete removes it.
+- After reloading Obsidian: the palette, default palette, a height of 350 and animations off were all kept. A height of 50 is marked and not saved.
+
+Bugs found and fixed during the check: colour rows in different palettes had the same name, which the 1.13 settings API uses as a key; and the colour picker wrote its lower-case value back into the hex field while it was being typed.
+
+Not done: FR-PAL-06 to 08 (Could). The settings tab has labels on every control. A full WCAG 2.2 AA check with a screen reader is in the M5 list.
+
+Acceptance boxes ticked in M3: FR-PAL-01 to 05, FR-SET-01.
+
+The vault keeps the `dsrpt` palette for the `Palettes` test note. The default palette is back to Theme.
+
 ## Checks for Safi
 
 1. Minimal and AnuPpuccin, light and dark: open a chart note in each and check the colours look right (M5, NFR-08).
@@ -100,4 +126,6 @@ Acceptance boxes ticked in M2: FR-BLOCK-01, FR-BLOCK-02, FR-BLOCK-05, FR-RENDER-
 - 2026-10-20: the chart's accessible name uses `aria-labelledby` and a visually hidden span, not `aria-label`. Obsidian shows every `aria-label` as a hover tooltip, so the description covered the chart on hover. Screen readers read the same text.
 - 2026-10-20: lines with more than 50 points hide their dots. At 500 rows the dots merged into one thick line.
 - 2026-10-20: `colors.ts` with `resolveColors` was written in M2, because rendering needs the theme colour list. Palette tests come in M3.
+- 2026-10-20: a palette can't be named `theme`, which is the dropdown's value for theme colours.
+- 2026-10-20: colours in a palette move up and down, not left and right, because each colour is its own settings row.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

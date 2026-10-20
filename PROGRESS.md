@@ -5,7 +5,7 @@ Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
 ## Milestones
 
 - M0 de-risk: done, two checks need Safi (see "Checks for Safi")
-- M1 scaffold and parser: not started
+- M1 scaffold and parser: done
 - M2 rendering and theme: not started
 - M3 palettes and settings: not started
 - M4 properties source: not started
@@ -46,6 +46,26 @@ All 14 variables resolve in every theme installed in this vault, light and dark:
 
 Live preview shows a code block as source while the cursor is inside it and renders it only when the cursor leaves, so typing in a 200-row table does not redraw the chart on each key. The real cost is one parse and render when the cursor leaves. That is timed in M2 once the parser exists. The 150 ms debounce is not added unless that shows lag.
 
+## M1 results (2026-10-20)
+
+- `numbers.ts` and `parse.ts` are written, with 16 tests in `tests/parse.test.ts`. `npm test`, `npm run lint` and `npm run build` pass.
+- `test-vault/errors/` has one note per FR-UX-01 mistake plus the unknown-key warning. Each was opened in reading view in the live Obsidian and showed its own message and line:
+
+| Note | Message |
+|------|---------|
+| Missing type | Line 1: missing type. Add a line like type: bar. |
+| Unknown type | Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar. |
+| No separator | Line 2: no "---" line. Put --- between the settings and the table. |
+| No table | Line 2: no table after "---". Add a markdown table. |
+| No number columns | Line 3: the table has no number columns. Add a column after the labels. |
+| Unreadable cell | Line 6: can't read "lots" as a number in column "Revenue". |
+| Unknown key | Line 2: unknown key "pallet", did you mean palette? (chart still draws) |
+
+- The chart itself is a plain bar for every type until M2.
+- The test notes are copied into the vault folder `S-Charts test` and stay there.
+
+Acceptance boxes ticked in M1: FR-BLOCK-03 (parsing and the warning), FR-BLOCK-04 (parsing), FR-UX-01. FR-BLOCK-01, 02 and 05 parse correctly but are ticked in M2, when the chart draws them as specified.
+
 ## Checks for Safi
 
 1. Minimal and AnuPpuccin, light and dark: open a chart note in each and check the colours look right (M5, NFR-08).
@@ -56,4 +76,6 @@ Live preview shows a code block as source while the cursor is inside it and rend
 - 2026-10-20: commit after each step and push to GitHub, at Safi's request. The spec said once per milestone. Local `main` pushes to the repo's default branch `master`.
 - 2026-10-20: the repo and folder are `obsidian-s-chart-plugins`, not `obsidian-s-charts` as the spec wrote. The plugin ID is `s-charts`.
 - 2026-10-20: `authorUrl` is the GitHub profile, the same as Property Reminders.
+- 2026-10-20: the header is read line by line, not with `parseYaml`. YAML treats ` #` as a comment, so `colors: #e11d48, #0ea5e9` (the spec's own example) came back empty, and `parseYaml` gives no line numbers for the FR-UX-01 messages. A side effect: `source: #daily` works without quotes, so the "quote the #" hint from M4 is not needed. `parse(source)` takes one argument.
+- 2026-10-20: the unknown-key suggestion allows up to half the key's length in edits. `pallet` to `palette` is 3 edits, so a fixed limit of 2 missed the spec's own example.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

@@ -1,0 +1,21 @@
+.s-chart {
+	position: relative;
+	height: 300px;
+}
+
+.s-chart-notice,
+.s-chart-error {
+	font-size: var(--font-ui-small);
+	padding: var(--size-2-2) var(--size-4-2);
+}
+
+.s-chart-notice {
+	color: var(--text-muted);
+}
+
+.s-chart-error {
+	color: var(--text-error);
+	border: 1px solid var(--background-modifier-error);
+	border-radius: var(--radius-s);
+	font-family: var(--font-monospace);
+}

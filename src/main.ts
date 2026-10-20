@@ -1,36 +1,33 @@
-// M0 spike: one hard-coded bar chart. Replaced in M1.
 import { Plugin } from 'obsidian';
 import { BarController, BarElement, CategoryScale, Chart, LinearScale } from 'chart.js';
+import { parse, Msg } from './parse.ts';
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale);
 
+function renderMessages(el: HTMLElement, cls: string, msgs: Msg[]) {
+	const box = el.createDiv({ cls });
+	for (const m of msgs) box.createDiv({ text: `Line ${m.line}: ${m.text}` });
+}
+
 export default class SChartsPlugin extends Plugin {
 	onload() {
-		this.registerMarkdownCodeBlockProcessor('s-chart', (_src, el) => {
-			const wrap = el.createDiv();
-			wrap.style.position = 'relative';
-			wrap.style.height = '300px';
-			const canvas = wrap.createEl('canvas');
-			const css = getComputedStyle(document.body);
-			const printing = !!el.closest('.print');
-			const chart = new Chart(canvas, {
+		this.registerMarkdownCodeBlockProcessor('s-chart', (source, el) => {
+			const { spec, warnings, errors } = parse(source);
+			if (!spec) {
+				renderMessages(el, 's-chart-error', errors);
+				return;
+			}
+			// ponytail: M1 draws every type as a bar. M2 replaces this with config.ts and ChartBlock.
+			const wrap = el.createDiv({ cls: 's-chart' });
+			new Chart(wrap.createEl('canvas'), {
 				type: 'bar',
 				data: {
-					labels: ['Jan', 'Feb', 'Mar'],
-					datasets: [
-						{ label: 'Revenue', data: [4200, 5100, 6300], backgroundColor: css.getPropertyValue('--color-accent') },
-						{ label: 'Costs', data: [3100, 3300, 3500], backgroundColor: css.getPropertyValue('--color-blue') },
-					],
+					labels: spec.labels,
+					datasets: spec.series.map((s) => ({ label: s.name, data: s.values })),
 				},
-				options: { responsive: true, maintainAspectRatio: false, animation: printing ? false : undefined, devicePixelRatio: printing ? 2 : undefined },
+				options: { responsive: true, maintainAspectRatio: false },
 			});
-			if (printing) {
-				const img = wrap.createEl('img', { attr: { src: chart.toBase64Image() } });
-				img.style.width = '100%';
-				chart.destroy();
-				canvas.remove();
-				wrap.style.height = 'auto';
-			}
+			if (warnings.length) renderMessages(el, 's-chart-notice', warnings);
 		});
 	}
 }

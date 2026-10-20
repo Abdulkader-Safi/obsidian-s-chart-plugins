@@ -7,36 +7,44 @@
 	<meta name="description" content="Draw charts in Obsidian from a markdown table or from note properties, in your theme's colours.">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
-	<header class="top">
-		<a class="brand" href="#">S-Charts</a>
-		<nav>
+	<svg width="0" height="0" class="sprite" aria-hidden="true">
+		<symbol id="arrow" viewBox="0 0 20 20"><path d="M6 14 14 6M7 6h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+	</svg>
+
+	<header class="nav">
+		<a class="logo" href="#top" aria-label="S-Charts home">
+			<span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+			S-Charts
+		</a>
+		<nav class="nav-group" aria-label="Sections">
+			<a href="#top" class="is-active">Overview</a>
 			<a href="#types">Chart types</a>
-			<a href="#install">Install</a>
 			<a href="#write">Write a chart</a>
-			<a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+			<a href="#install">Install</a>
 		</nav>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
 	</header>
 
-	<main>
+	<main class="page" id="top">
 		<section class="hero">
-			<div class="hero-text">
-				<h1>Type a table. Get a chart.</h1>
-				<p class="lede">S-Charts is an Obsidian plugin that draws a chart from a markdown table in your note, or from the properties of many notes. It uses your theme's colours and redraws when you switch to dark mode.</p>
-				<p class="hero-links">
-					<a class="button" href="#install">Install the plugin</a>
-					<a class="quiet" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">Source on GitHub</a>
-				</p>
+			<div class="hero-glow" aria-hidden="true"></div>
+			<p class="label">An Obsidian plugin</p>
+			<h1>Type a table, get a chart in your theme</h1>
+			<p class="lead">S-Charts draws bar, line, pie and four more chart types from a table in your note, or from the properties of many notes. Your data stays plain text.</p>
+			<div class="hero-ctas">
+				<a class="btn btn-ink" href="#install">Install the plugin</a>
+				<a class="btn btn-white" href="#write">See how a block works</a>
 			</div>
-			<div class="hero-demo">
-				<figure class="note">
-					<figcaption>In your note</figcaption>
+
+			<div class="stage" data-scale>
+				<div class="stage-note">
+					<p class="stage-cap">In your note</p>
 <pre><code>```s-chart
 type: bar
-title: Bar
 ---
 | Month | Revenue | Costs |
 | ----- | ------- | ----- |
@@ -45,43 +53,82 @@ title: Bar
 | Mar   | 6300    | 3500  |
 | Apr   | 5800    | 3400  |
 ```</code></pre>
-				</figure>
-				<figure class="result">
-					<figcaption>What you see</figcaption>
-					<picture>
-						<source srcset="img/hero-dark.png" media="(prefers-color-scheme: dark)">
-						<img src="img/hero-light.png" width="1184" height="744" alt="A bar chart of revenue and costs for January to April.">
-					</picture>
-				</figure>
+				</div>
+				<div class="stage-chart">
+					<p class="stage-cap">What you see</p>
+					<img src="img/charts/bar.png" width="1168" height="728" alt="A bar chart of revenue and costs for January to April, in green and lime.">
+				</div>
 			</div>
 		</section>
 
-		<section id="types">
-			<h2>Chart types</h2>
-			<p>Bar, line, area, pie, doughnut, scatter and radar. Bars can be stacked or turned on their side. Each chart below is drawn by the plugin in Obsidian's default theme.</p>
-			<picture class="gallery">
-				<source srcset="img/gallery-dark.png" media="(prefers-color-scheme: dark)">
-				<img src="img/gallery-light.png" width="1872" height="1203" alt="Nine example charts: bar, line, area, pie, doughnut, scatter, radar, stacked horizontal bar, and a line chart built from note properties.">
-			</picture>
+		<div class="marquee" aria-hidden="true">
+			<div class="marquee-track">
+				<span>bar</span><img src="img/charts/bar.png" alt=""><span>line</span><img src="img/charts/line.png" alt=""><span>area</span><img src="img/charts/area.png" alt=""><span>pie</span><img src="img/charts/pie.png" alt=""><span>doughnut</span><img src="img/charts/doughnut.png" alt=""><span>scatter</span><img src="img/charts/scatter.png" alt=""><span>radar</span><img src="img/charts/radar.png" alt="">
+				<span>bar</span><img src="img/charts/bar.png" alt=""><span>line</span><img src="img/charts/line.png" alt=""><span>area</span><img src="img/charts/area.png" alt=""><span>pie</span><img src="img/charts/pie.png" alt=""><span>doughnut</span><img src="img/charts/doughnut.png" alt=""><span>scatter</span><img src="img/charts/scatter.png" alt=""><span>radar</span><img src="img/charts/radar.png" alt="">
+			</div>
+		</div>
+
+		<section class="block" id="features">
+			<div class="section-head">
+				<div>
+					<p class="label">What it does</p>
+					<h2>Charts that look like they <img class="pill-img" src="img/charts/doughnut.png" alt=""> came with your vault</h2>
+				</div>
+				<p class="aside">No setup. Charts pick up your theme's accent, axis colours and font, then redraw when you switch theme or turn on dark mode.</p>
+			</div>
+
+			<div class="bento">
+				<article class="card bento-a">
+					<h3>Your theme's colours, by default</h3>
+					<p>The first series takes the accent colour, the rest follow the theme's other colours. Toggle dark mode and every open chart recolours in under a tenth of a second.</p>
+					<div class="card-media"><img src="img/gallery-light.png" width="1872" height="1203" alt="Nine charts drawn in Obsidian's default theme colours." loading="lazy"></div>
+				</article>
+				<article class="card bento-b">
+					<h3>Palettes for your brand</h3>
+					<p>Make named palettes of up to 12 colours in settings, then add <code>palette: brand</code> to a chart. Edit a colour and the open charts follow.</p>
+					<div class="swatches" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+				</article>
+				<article class="card bento-c">
+					<h3>From note properties</h3>
+					<p>Point a chart at <code>#daily</code> and plot <code>weight</code> by <code>date</code> across every note.</p>
+					<div class="card-media small"><img src="img/charts/properties.png" width="1168" height="728" alt="A line chart of weight over 30 daily notes." loading="lazy"></div>
+				</article>
+				<article class="card bento-d">
+					<h3>Sharp in PDF export</h3>
+					<p>Charts print fully drawn and scaled to the page, at twice the screen's pixel density.</p>
+					<p class="metric">2x</p>
+				</article>
+			</div>
 		</section>
 
-		<section id="install">
-			<h2>Install</h2>
-			<p>S-Charts is not in Obsidian's community plugin list yet. Until it is, install it by hand:</p>
-			<ol class="steps">
-				<li>Download <code>main.js</code>, <code>manifest.json</code> and <code>styles.css</code> from the <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/releases">latest release</a>.</li>
-				<li>In your vault, make the folder <code>.obsidian/plugins/s-charts/</code> and put the three files in it.</li>
-				<li>Restart Obsidian, open <strong>Settings → Community plugins</strong>, and turn on S-Charts.</li>
-				<li>Open a note and run <strong>Insert chart</strong> from the command palette. A sample chart appears.</li>
-			</ol>
-			<p>It works on desktop and mobile, needs Obsidian 1.5.0 or later, and never connects to the internet.</p>
+		<section class="panel-dark" id="types">
+			<div class="section-head on-dark">
+				<div>
+					<p class="label">Chart types</p>
+					<h2>Seven types, one table</h2>
+				</div>
+				<p class="aside">The same table works for each type. Change <code>type:</code> and the chart redraws when you leave the block.</p>
+			</div>
+			<div class="accordion">
+				<button class="slice is-open" type="button"><span class="slice-name">Bar</span><span class="slice-body"><img src="img/charts/bar.png" alt="Bar chart" loading="lazy"><span>Groups side by side. Add <code>stacked: true</code> or <code>horizontal: true</code>.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Line</span><span class="slice-body"><img src="img/charts/line.png" alt="Line chart" loading="lazy"><span>Trends over time. An empty cell leaves a gap, not a zero.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Area</span><span class="slice-body"><img src="img/charts/area.png" alt="Area chart" loading="lazy"><span>A filled line. Stack series to show a running total.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Pie</span><span class="slice-body"><img src="img/charts/pie.png" alt="Pie chart" loading="lazy"><span>Shares of a whole, one slice per row.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Doughnut</span><span class="slice-body"><img src="img/charts/doughnut.png" alt="Doughnut chart" loading="lazy"><span>A pie with room to breathe.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Scatter</span><span class="slice-body"><img src="img/charts/scatter.png" alt="Scatter chart" loading="lazy"><span>Numbers against numbers. The first column is the x axis.</span></span></button>
+				<button class="slice" type="button"><span class="slice-name">Radar</span><span class="slice-body"><img src="img/charts/radar.png" alt="Radar chart" loading="lazy"><span>Compare a few series across five or more measures.</span></span></button>
+			</div>
 		</section>
 
-		<section id="write">
-			<h2>Write a chart</h2>
-			<p>A chart is a code block with the language <code>s-chart</code>. Settings go above a <code>---</code> line, and the table goes below it. The first column holds the labels. Every other column is one series, named by its header.</p>
-			<div class="code">
-				<button class="copy" type="button">Copy</button>
+		<section class="block split" id="write">
+			<div class="split-pin">
+				<p class="label">Write a chart</p>
+				<h2>It is plain text you already know</h2>
+				<p class="aside">A code block with the language <code>s-chart</code>. Settings above a <code>---</code> line, a markdown table below it. Run <strong>Insert chart</strong> from the command palette for a sample.</p>
+			</div>
+			<div class="split-cards">
+				<article class="card">
+					<div class="card-row"><span>The block</span><button class="copy" type="button">Copy</button></div>
 <pre><code>```s-chart
 type: line
 title: Monthly revenue
@@ -93,82 +140,91 @@ legend: bottom
 | Feb   | 5100    | 3300  |
 | Mar   | 6300    | 3500  |
 ```</code></pre>
-			</div>
-
-			<h3>Settings lines</h3>
-			<div class="table-wrap">
-				<table>
-					<thead><tr><th>Key</th><th>What it does</th></tr></thead>
-					<tbody>
-						<tr><td><code>type</code></td><td>Required. <code>bar</code>, <code>line</code>, <code>area</code>, <code>pie</code>, <code>doughnut</code>, <code>scatter</code> or <code>radar</code>.</td></tr>
-						<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
-						<tr><td><code>palette</code></td><td>A palette you made in settings.</td></tr>
-						<tr><td><code>colors</code></td><td>Hex colours for this chart only: <code>#e11d48, #0ea5e9</code>.</td></tr>
-						<tr><td><code>height</code></td><td>Pixels, 120 to 1200. 300 by default.</td></tr>
-						<tr><td><code>stacked</code></td><td><code>true</code> stacks bars and areas.</td></tr>
-						<tr><td><code>horizontal</code></td><td><code>true</code> turns bars on their side.</td></tr>
-						<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>.</td></tr>
-						<tr><td><code>x-label</code>, <code>y-label</code></td><td>Axis titles.</td></tr>
-					</tbody>
-				</table>
-			</div>
-
-			<h3>Numbers</h3>
-			<p>Cells can hold <code>4200</code>, <code>4,200</code>, <code>$4,200</code>, <code>KWD 4,200</code>, <code>42%</code> or <code>-3.5</code>. An empty cell leaves a gap in the line instead of a zero.</p>
-
-			<h3>Mistakes</h3>
-			<p>A block the plugin can't read shows the line and the problem in place of the chart, for example <q>Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</q> A misspelt key such as <code>pallet</code> gets <q>did you mean palette?</q> and the chart still draws.</p>
-
-			<h3>Editing a chart</h3>
-			<p>In live preview, hover over a chart and select the <code>&lt;/&gt;</code> button in its top-right corner to see its text again.</p>
-		</section>
-
-		<section id="colours">
-			<h2>Colours and palettes</h2>
-			<p>With nothing set, the first series takes your theme's accent colour and the rest follow the theme's other colours. Axis text, grid lines and the font come from the theme as well, so a chart looks at home in any theme, light or dark.</p>
-			<p>To use your brand colours, open <strong>Settings → S-Charts</strong>, select <strong>Add palette</strong>, give it a name and pick up to 12 colours. Then add <code>palette: brand</code> to a chart, or make it the default palette for every chart. Editing a palette redraws the charts that use it.</p>
-		</section>
-
-		<section id="properties">
-			<h2>Charts from note properties</h2>
-			<p>Leave out the table and point the chart at notes instead. This draws one point per daily note, sorted by date:</p>
-			<div class="code">
-				<button class="copy" type="button">Copy</button>
+					<p>The first column holds the labels. Every other column is one series, named by its header.</p>
+				</article>
+				<article class="card">
+					<div class="card-row"><span>Settings lines</span></div>
+					<dl class="keys">
+						<div><dt><code>type</code></dt><dd>Required: bar, line, area, pie, doughnut, scatter or radar</dd></div>
+						<div><dt><code>title</code></dt><dd>Text above the chart</dd></div>
+						<div><dt><code>palette</code></dt><dd>A palette from settings</dd></div>
+						<div><dt><code>colors</code></dt><dd>Hex colours for this chart only</dd></div>
+						<div><dt><code>height</code></dt><dd>120 to 1200 pixels, 300 by default</dd></div>
+						<div><dt><code>stacked</code>, <code>horizontal</code></dt><dd><code>true</code> or <code>false</code></dd></div>
+						<div><dt><code>legend</code></dt><dd>top, bottom or none</dd></div>
+						<div><dt><code>x-label</code>, <code>y-label</code></dt><dd>Axis titles</dd></div>
+					</dl>
+				</article>
+				<article class="card">
+					<div class="card-row"><span>Numbers</span></div>
+					<div class="chips"><code>4200</code><code>4,200</code><code>$4,200</code><code>KWD 4,200</code><code>42%</code><code>-3.5</code></div>
+					<p>Currency symbols, three-letter codes, thousands commas and percent signs are read for you. Tooltips format numbers for your locale.</p>
+				</article>
+				<article class="card">
+					<div class="card-row"><span>Charts from properties</span><button class="copy" type="button">Copy</button></div>
 <pre><code>```s-chart
 type: line
-title: Weight
 source: "#daily"
 x: date
 y: weight
 ```</code></pre>
+					<p><code>source</code> is a tag or a folder. Change a property in any of those notes and the chart updates within half a second.</p>
+				</article>
+				<article class="card">
+					<div class="card-row"><span>When something is wrong</span></div>
+					<p class="error-line">Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</p>
+					<p>A block the plugin can't read says which line and why, instead of leaving a blank space. A misspelt key such as <code>pallet</code> gets "did you mean palette?" and the chart still draws.</p>
+				</article>
+				<article class="card">
+					<div class="card-row"><span>Editing a chart</span></div>
+					<p>In live preview, hover over a chart and select the <code>&lt;/&gt;</code> button in its top-right corner to see the block's text again.</p>
+				</article>
 			</div>
-			<p><code>source</code> is a tag or a folder path. <code>y</code> can list several properties, separated by commas. Change a property in any of those notes and the chart updates within half a second.</p>
 		</section>
 
-		<section id="more">
-			<h2>PDF export and privacy</h2>
-			<p>Charts come out fully drawn and sharp in Obsidian's <strong>Export to PDF</strong>, scaled to the page.</p>
-			<p>The plugin runs on your device only. It makes no network requests, collects nothing, and never edits your notes. Your data stays as plain text you can read without the plugin.</p>
+		<section class="block reveal-wrap">
+			<p class="reveal" data-reveal>Everything runs on your device. No network requests, nothing collected, and the plugin never edits your notes. Turn it off and your table is still there, readable as plain text.</p>
+		</section>
+
+		<section class="block" id="install">
+			<div class="section-head">
+				<div>
+					<p class="label">Install</p>
+					<h2>Four steps to your first chart</h2>
+				</div>
+				<p class="aside">S-Charts is not in Obsidian's community plugin list yet. Until it is, install it by hand. Needs Obsidian 1.5.0 or later, on desktop or mobile.</p>
+			</div>
+			<ol class="steps">
+				<li class="step is-current"><span class="step-n">1</span><h3>Download</h3><p><code>main.js</code>, <code>manifest.json</code> and <code>styles.css</code> from the <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/releases">latest release</a>.</p></li>
+				<li class="step"><span class="step-n">2</span><h3>Copy</h3><p>Put the three files in <code>.obsidian/plugins/s-charts/</code> inside your vault.</p></li>
+				<li class="step"><span class="step-n">3</span><h3>Turn it on</h3><p>Restart Obsidian, then <strong>Settings → Community plugins</strong> and enable S-Charts.</p></li>
+				<li class="step"><span class="step-n">4</span><h3>Insert a chart</h3><p>Run <strong>Insert chart</strong> from the command palette in any note.</p></li>
+			</ol>
+		</section>
+
+		<section class="panel-green">
+			<div class="panel-green-text">
+				<h2>Put your first chart in a note</h2>
+				<p>Free, MIT licensed, and built in the open. Bug reports and ideas are welcome on GitHub.</p>
+				<a class="btn btn-lime" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/releases">Get the latest release</a>
+			</div>
+			<ul class="channels">
+				<li><a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">Source code<svg><use href="#arrow"/></svg></a></li>
+				<li><a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/issues">Report a bug<svg><use href="#arrow"/></svg></a></li>
+				<li><a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins#readme">Full documentation<svg><use href="#arrow"/></svg></a></li>
+				<li><a href="https://github.com/Abdulkader-Safi">More plugins by Abdulkader Safi<svg><use href="#arrow"/></svg></a></li>
+			</ul>
 		</section>
 	</main>
 
-	<footer>
-		<p>S-Charts is free and MIT licensed. Made by <a href="https://github.com/Abdulkader-Safi">Abdulkader Safi</a>. Found a bug? <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/issues">Open an issue</a>.</p>
+	<footer class="footer">
+		<p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p>
+		<p>Made by <a href="https://abdulkadersafi.com">abdulkadersafi.com</a></p>
+		<a href="#top">Back to top ↑</a>
 	</footer>
 
-	<script>
-		for (const button of document.querySelectorAll('.copy')) {
-			button.addEventListener('click', async () => {
-				const code = button.parentElement.querySelector('code').textContent;
-				try {
-					await navigator.clipboard.writeText(code);
-					button.textContent = 'Copied';
-				} catch {
-					button.textContent = 'Select and copy';
-				}
-				setTimeout(() => { button.textContent = 'Copy'; }, 1600);
-			});
-		}
-	</script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha384-Z3REaz79l2IaAZqJsSABtTbhjgOUYyV3p90XNnAPCSHg3EMTz1fouunq9WZRtj3d" crossorigin="anonymous"></script>
+	<script src="site.js"></script>
 </body>
 </html>

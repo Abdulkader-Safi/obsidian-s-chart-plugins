@@ -205,4 +205,5 @@ MVP:
 - 2026-10-20: "Copy as image" (FR-UX-03, Could) is not built.
 - 2026-10-20: the spec moved from `Docs/spec/` to `spec/`. `docs/` is now the GitHub Pages site, at Safi's request, and macOS treats `Docs` and `docs` as one folder. Keeping the spec out of `docs/` also keeps it off the public site.
 - 2026-10-20: `test-vault/Gallery.md` holds one chart per type. The README and site images were captured from it in Obsidian's default theme, light and dark, at 2x, then tiled 3 to a row.
+- 2026-10-20: the site was redesigned with the gpt-taste layout and motion rules and Safi's rounded clean UI branding. Where they disagreed the branding won: Funnel Display and Funnel Sans instead of gpt-taste's fonts, and real charts in brand colours (`docs/img/charts/`) instead of stock photos. It stays plain HTML with GSAP 3.12.5 from cdnjs (with integrity hashes), so Pages needs no build step. Motion is skipped when GSAP fails to load or the reader prefers reduced motion.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

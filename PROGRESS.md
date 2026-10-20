@@ -8,7 +8,7 @@ Build log for S-Charts. The plan is `Docs/spec/06-build-spec.md`.
 - M1 scaffold and parser: done
 - M2 rendering and theme: done, Minimal and AnuPpuccin need Safi
 - M3 palettes and settings: done
-- M4 properties source: not started
+- M4 properties source: done
 - M5 polish and release: not started
 
 ## M0 results (2026-10-20)
@@ -111,6 +111,23 @@ Acceptance boxes ticked in M3: FR-PAL-01 to 05, FR-SET-01.
 
 The vault keeps the `dsrpt` palette for the `Palettes` test note. The default palette is back to Theme.
 
+## M4 results (2026-10-20)
+
+Built: `properties.ts` (tag and folder matching, `loadRows`), `rows.ts` (pure: properties to sorted rows) with 2 tests (30 in all), the watcher in `chart-block.ts`, and `tests/make-notes.mjs`, which writes dated notes with properties.
+
+Each properties block registers its own listeners on `metadataCache` `changed`, `delete` and `rename`. They belong to the block, so they exist only while it is on screen and go away with it. Redraws are debounced at 500 ms.
+
+Checked in the live Obsidian with the 30 notes in `test-vault/daily/`:
+
+- `source: "#daily"`, `x: date`, `y: weight` draws 30 points, 2026-01-01 to 2026-01-30, in date order.
+- `source: S-Charts test/daily` with `y: weight, steps` draws two series of 30.
+- `source: "#nothing-here"` shows "No notes match "#nothing-here". Use a tag like "#daily" or a folder path."
+- Setting one note's `weight` to 99 updated the chart in about 520 ms. Setting it back restored it.
+- Removing `date` from one note dropped it to 29 points with "1 note skipped: no "date" property.", and putting it back returned 30.
+- 2,000 generated notes: building the rows and drawing a 2,000-point chart took 52 to 83 ms by tag and 51 to 53 ms by folder. The generated notes were deleted after the run.
+
+Acceptance boxes ticked in M4: FR-SRC-01, FR-SRC-02, the 2,000-note half of NFR-04.
+
 ## Checks for Safi
 
 1. Minimal and AnuPpuccin, light and dark: open a chart note in each and check the colours look right (M5, NFR-08).
@@ -128,4 +145,7 @@ The vault keeps the `dsrpt` palette for the `Palettes` test note. The default pa
 - 2026-10-20: `colors.ts` with `resolveColors` was written in M2, because rendering needs the theme colour list. Palette tests come in M3.
 - 2026-10-20: a palette can't be named `theme`, which is the dropdown's value for theme colours.
 - 2026-10-20: colours in a palette move up and down, not left and right, because each colour is its own settings row.
+- 2026-10-20: "Loading notes" after 200 ms is not built. The build is synchronous and takes about 55 ms at 2,000 notes, so a 200 ms timer could never fire before the chart is drawn. Showing it would mean splitting the build into chunks, which costs more code than the case is worth. Revisit if someone reports a slow vault.
+- 2026-10-20: a tag source also matches nested tags (`#daily` matches `#daily/work`), the same as Obsidian's tag search. Property names match without case.
+- 2026-10-20: the folder test in `Properties source.md` uses `S-Charts test/daily`, so `test-vault/` must be copied into a vault folder named `S-Charts test`.
 - 2026-10-20: the spike lived in this repo instead of a separate scratch plugin, so it could be loaded in the same vault without a second folder.

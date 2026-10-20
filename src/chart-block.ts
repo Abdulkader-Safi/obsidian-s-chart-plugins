@@ -1,4 +1,4 @@
-import { MarkdownRenderChild } from 'obsidian';
+import { MarkdownRenderChild, TFile, debounce, type App } from 'obsidian';
 import {
 	ArcElement, BarController, BarElement, CategoryScale, Chart, DoughnutController, Filler, Legend,
 	LinearScale, LineController, LineElement, PieController, PointElement, RadarController,
@@ -7,6 +7,7 @@ import {
 import { resolveColors } from './colors.ts';
 import { colorCount, toChartConfig } from './config.ts';
 import { parse } from './parse.ts';
+import { loadRows, matches } from './properties.ts';
 import type { SChartsSettings } from './settings.ts';
 import { readTheme } from './theme.ts';
 
@@ -17,6 +18,7 @@ Chart.register(
 );
 
 export interface BlockHost {
+	app: App;
 	settings: SChartsSettings;
 	blocks: Set<ChartBlock>;
 }
@@ -31,6 +33,8 @@ let labelCount = 0;
 /** Owns one chart. Every redraw runs parse to config again from the block text. */
 export class ChartBlock extends MarkdownRenderChild {
 	private chart?: Chart;
+	/** Notes the last properties build used, so a note that stops matching still triggers a redraw. */
+	private paths = new Set<string>();
 
 	constructor(el: HTMLElement, private source: string, private host: BlockHost) {
 		super(el);
@@ -39,6 +43,25 @@ export class ChartBlock extends MarkdownRenderChild {
 	onload() {
 		this.host.blocks.add(this);
 		this.redraw();
+		const source = parse(this.source).spec?.source;
+		if (source !== undefined) this.watch(source);
+	}
+
+	/** Properties mode: redraw when a matching note's properties change, at most once per 500 ms. */
+	private watch(source: string) {
+		const { app } = this.host;
+		const soon = debounce(() => this.redraw(), 500, true);
+		const touches = (file: TFile, oldPath?: string) =>
+			this.paths.has(file.path) || (oldPath !== undefined && this.paths.has(oldPath)) || matches(app, file, source);
+		this.registerEvent(app.metadataCache.on('changed', (file) => {
+			if (touches(file)) soon();
+		}));
+		this.registerEvent(app.vault.on('delete', (file) => {
+			if (this.paths.has(file.path)) soon();
+		}));
+		this.registerEvent(app.vault.on('rename', (file, oldPath) => {
+			if (file instanceof TFile && touches(file, oldPath)) soon();
+		}));
 	}
 
 	onunload() {
@@ -68,10 +91,21 @@ export class ChartBlock extends MarkdownRenderChild {
 			return;
 		}
 		const notices: { line?: number; text: string }[] = [...warnings];
-		if (spec.source) {
-			// ponytail: properties mode is M4.
-			renderMessages(el, 's-chart-error', [{ text: 'Properties source is not built yet.' }]);
-			return;
+		if (spec.source !== undefined) {
+			const rows = loadRows(spec, this.host.app);
+			this.paths = rows.paths;
+			if (!rows.labels.length) {
+				const text = rows.paths.size
+					? `${rows.paths.size} notes match "${spec.source}", but none has the property "${spec.x ?? ''}".`
+					: `No notes match "${spec.source}". Use a tag like "#daily" or a folder path.`;
+				renderMessages(el, 's-chart-error', [{ text }]);
+				return;
+			}
+			spec.labels = rows.labels;
+			spec.series = rows.series;
+			if (rows.skipped) {
+				notices.push({ text: `${rows.skipped} ${rows.skipped === 1 ? 'note' : 'notes'} skipped: no "${spec.x ?? ''}" property.` });
+			}
 		}
 
 		const { settings } = this.host;

@@ -31,7 +31,7 @@ To change a chart in live preview, hover over it and select the `</>` button in 
 
 ## Chart types
 
-`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`. Every chart below was drawn by the plugin in Obsidian's default theme, from the notes in [test-vault/Gallery.md](test-vault/Gallery.md).
+`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`. Every chart below was drawn by the plugin in Obsidian's default theme.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/gallery-dark.png">

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Bar chart, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html" aria-current="page">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Bar chart</h1>
+				<p class="lead">Bars compare values across labels. Each series gets its own bar in every group, side by side.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/bar.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+
+<h2 id="when-to-use-it">When to use it</h2>
+<p>Use a bar chart to compare amounts: revenue by month, tasks by project, hours by person. If the labels are points in time and you care about the trend more than each value, a <a href="line.html">line chart</a> reads better.</p>
+
+<h2 id="options">Options</h2>
+<p>Every option for a bar chart, and what it does here. All of them are optional except <code>type</code>.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a bar chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: bar</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the label axis (under the bars, or beside them when horizontal).</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the value axis.</td></tr>
+		<tr><td><code>stacked</code></td><td><code>true</code> stacks the series into one bar per label.</td></tr>
+		<tr><td><code>horizontal</code></td><td><code>true</code> draws the bars left to right, labels down the side.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown at the top when there are two or more series, hidden for one.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. Default 300, or your setting.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per series, for this chart only.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings. Series take its colours in order.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties instead of a table. See <a href="properties.html">Charts from properties</a>.</td></tr>
+	</tbody>
+</table></div>
+<p>The value axis always starts at zero, so bar lengths stay honest.</p>
+
+<h2 id="stacked">Stacked</h2>
+<p>Stacking puts the series on top of each other, so each bar shows the total for its label.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/bar-stacked.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Revenue and costs, stacked
+stacked: true
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+
+<h2 id="horizontal">Horizontal</h2>
+<p>Horizontal bars leave room for long labels. You can combine <code>horizontal</code> with <code>stacked</code>.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/bar-horizontal.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+horizontal: true
+legend: bottom
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+
+<h2 id="axis-titles-and-height">Axis titles and height</h2>
+<figure class="example"><div class="example-chart"><img src="img/examples/bar-labels.png" alt="The chart this block draws" loading="lazy" width="1168" height="768"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+x-label: Month
+y-label: KWD
+height: 360
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="data.html"><span>Previous</span>Writing the table</a>
+				<a class="pager-next" href="line.html"><span>Next</span>Line</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#when-to-use-it">When to use it</a></li><li><a href="#options">Options</a></li><li><a href="#stacked">Stacked</a></li><li><a href="#horizontal">Horizontal</a></li><li><a href="#axis-titles-and-height">Axis titles and height</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

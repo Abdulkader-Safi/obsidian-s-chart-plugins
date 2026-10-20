@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Options reference, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html" aria-current="page">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Options reference</h1>
+				<p class="lead">Options go above the <code>---</code> line, one per line, written <code>key: value</code>. Only <code>type</code> is required. Keys are lower case, and values can be wrapped in quotes.</p>
+
+<h2 id="all-options">All options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>Values</th><th>Default</th><th>What it does</th></tr></thead>
+	<tbody>
+		<tr><td><code>type</code></td><td><code>bar</code> <code>line</code> <code>area</code> <code>pie</code> <code>doughnut</code> <code>scatter</code> <code>radar</code></td><td>required</td><td>The chart type.</td></tr>
+		<tr><td><code>title</code></td><td>any text</td><td>none</td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>any text</td><td>none</td><td>Title for the label axis.</td></tr>
+		<tr><td><code>y-label</code></td><td>any text</td><td>none</td><td>Title for the value axis.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code> <code>bottom</code> <code>none</code></td><td><code>top</code>, or <code>none</code> for one series</td><td>Where the list of series or slices goes.</td></tr>
+		<tr><td><code>height</code></td><td>120 to 1200</td><td>300, or your setting</td><td>Chart height in pixels. The width always fills the note.</td></tr>
+		<tr><td><code>stacked</code></td><td><code>true</code> <code>false</code></td><td><code>false</code></td><td>Stack the series on top of each other.</td></tr>
+		<tr><td><code>horizontal</code></td><td><code>true</code> <code>false</code></td><td><code>false</code></td><td>Draw bars left to right.</td></tr>
+		<tr><td><code>colors</code></td><td>hex colours, comma separated</td><td>none</td><td>Colours for this chart only. Overrides <code>palette</code>. See <a href="colours.html">Colours and palettes</a>.</td></tr>
+		<tr><td><code>palette</code></td><td>a palette name</td><td>your default palette</td><td>Use a palette from settings.</td></tr>
+		<tr><td><code>source</code></td><td>a tag such as <code>"#daily"</code>, or a folder path</td><td>none</td><td>Draw from note properties instead of a table.</td></tr>
+		<tr><td><code>x</code></td><td>a property name</td><td>none</td><td>With <code>source</code>: the property along the x axis.</td></tr>
+		<tr><td><code>y</code></td><td>property names, comma separated</td><td>none</td><td>With <code>source</code>: the properties to plot.</td></tr>
+	</tbody>
+</table></div>
+<p><code>yes</code> and <code>no</code> also work for <code>true</code> and <code>false</code>. A <code>height</code> outside 120 to 1200 is ignored with a warning.</p>
+
+<h2 id="which-options-work-on-which-type">Which options work on which type</h2>
+<p>Options that don't apply to a type are ignored without a warning, so you can switch <code>type</code> freely.</p>
+<div class="table-wrap"><table class="matrix">
+	<thead><tr><th>Option</th><th>Bar</th><th>Line</th><th>Area</th><th>Pie</th><th>Doughnut</th><th>Scatter</th><th>Radar</th></tr></thead>
+	<tbody>
+		<tr><td><code>title</code>, <code>legend</code>, <code>height</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>colors</code>, <code>palette</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>x-label</code>, <code>y-label</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td></tr>
+		<tr><td><code>stacked</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>horizontal</code></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>source</code>, <code>x</code>, <code>y</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+	</tbody>
+</table></div>
+
+<h2 id="misspelt-options">Misspelt options</h2>
+<p>An option the plugin doesn't know shows a warning under the chart, and the chart still draws. If the key is close to a real one, the warning suggests it:</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/warning-key.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+pallet: brand
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+<p class="message notice">Line 3: unknown key "pallet", did you mean palette?</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="radar.html"><span>Previous</span>Radar</a>
+				<a class="pager-next" href="colours.html"><span>Next</span>Colours and palettes</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#all-options">All options</a></li><li><a href="#which-options-work-on-which-type">Which options work on which type</a></li><li><a href="#misspelt-options">Misspelt options</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Scatter chart, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html" aria-current="page">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Scatter chart</h1>
+				<p class="lead">A scatter plots numbers against numbers. The first column is the horizontal axis, and each other column is a set of points.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/scatter.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: scatter
+title: Height and weight
+x-label: Height (cm)
+y-label: Weight (kg)
+---
+| Height | Weight |
+| ------ | ------ |
+| 158    | 54     |
+| 162    | 59     |
+| 165    | 61     |
+| 170    | 66     |
+| 172    | 70     |
+| 175    | 72     |
+| 178    | 77     |
+| 181    | 79     |
+| 185    | 84     |
+```</code></pre></div></figure>
+
+<h2 id="when-to-use-it">When to use it</h2>
+<p>Use a scatter to see whether two measures move together: height and weight, hours and score, price and sales.</p>
+
+<h2 id="options">Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a scatter chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: scatter</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the horizontal axis, which comes from the first column.</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the vertical axis.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown for two or more sets of points.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per set of points.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties. <code>x</code> must be a number property.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code> and <code>horizontal</code> have no effect.</p>
+
+<h2 id="the-first-column-must-be-numbers">The first column must be numbers</h2>
+<p>Unlike other types, the first column of a scatter is a number axis, not labels. A cell such as <code>one</code> stops the chart with "scatter needs a number in the first column". The number formats from <a href="data.html#numbers">Writing the table</a> all work here.</p>
+
+<h2 id="two-sets-of-points">Two sets of points</h2>
+<p>Each extra column is another set of points, in its own colour. An empty cell skips that point.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/scatter-two.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: scatter
+title: Two groups
+x-label: Hours studied
+y-label: Score
+---
+| Hours | Class A | Class B |
+| ----- | ------- | ------- |
+| 1     | 52      | 48      |
+| 2     | 58      | 55      |
+| 3     | 61      |         |
+| 4     | 70      | 64      |
+| 5     | 74      | 69      |
+| 6     | 81      | 77      |
+```</code></pre></div></figure>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="doughnut.html"><span>Previous</span>Doughnut</a>
+				<a class="pager-next" href="radar.html"><span>Next</span>Radar</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#when-to-use-it">When to use it</a></li><li><a href="#options">Options</a></li><li><a href="#the-first-column-must-be-numbers">The first column must be numbers</a></li><li><a href="#two-sets-of-points">Two sets of points</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

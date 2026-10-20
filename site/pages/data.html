@@ -1,0 +1,34 @@
+<!-- title: Writing the table -->
+<p class="lead">Every chart type reads a standard markdown table. The first column holds the labels, and each other column is one series.</p>
+
+<h2>Labels and series</h2>
+{{example bar}}
+<p>Here <code>Month</code> is the label column, so Jan to Apr run along the bottom. <code>Revenue</code> and <code>Costs</code> are two series, named by their headers. Add a <code>Profit</code> column and you get a third series with no other change.</p>
+<p>The line of dashes under the header is optional. Rows are drawn in the order you write them.</p>
+
+<h2>Numbers</h2>
+<p>Each cell after the first column must be a number. These forms are all read as numbers:</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>You write</th><th>Read as</th></tr></thead>
+	<tbody>
+		<tr><td><code>4200</code></td><td>4200</td></tr>
+		<tr><td><code>4,200</code></td><td>4200, the thousands comma is dropped</td></tr>
+		<tr><td><code>$4,200</code></td><td>4200, currency symbols ($ € £ ¥ ₹) are dropped</td></tr>
+		<tr><td><code>KWD 4,200</code> or <code>4,200 KWD</code></td><td>4200, three-letter currency codes are dropped</td></tr>
+		<tr><td><code>42%</code></td><td>42</td></tr>
+		<tr><td><code>-3.5</code></td><td>-3.5</td></tr>
+		<tr><td>an empty cell</td><td>a gap</td></tr>
+	</tbody>
+</table></div>
+{{example numbers}}
+<p>May is empty, so the line breaks there instead of dropping to zero.</p>
+<p>A cell the plugin can't read, such as <code>lots</code>, stops the chart and names the line and column. See <a href="errors.html">Errors and warnings</a>.</p>
+
+<h2>Tooltips</h2>
+<p>Hover over a bar, point or slice (tap on mobile) to see its label, series and value, for example "Feb, Revenue: 5,100". Numbers are formatted for your system's language.</p>
+
+<h2>Right-to-left text</h2>
+<p>Labels, headers and titles in Arabic or Hebrew draw right to left as written.</p>
+
+<h2>Large tables</h2>
+<p>Tables up to 500 rows by 8 series draw in well under a tenth of a second. On line and area charts with more than 50 rows, the dots on each point are hidden so the line stays readable.</p>

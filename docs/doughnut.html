@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Doughnut chart, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html" aria-current="page">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Doughnut chart</h1>
+				<p class="lead">A doughnut is a pie with a hole in the middle. It reads the table the same way: one slice per row.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/doughnut.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: doughnut
+title: Users by plan
+---
+| Plan | Users |
+| ---- | ----- |
+| Free | 6400  |
+| Pro  | 2100  |
+| Team | 900   |
+```</code></pre></div></figure>
+
+<h2 id="when-to-use-it">When to use it</h2>
+<p>Use it where you would use a <a href="pie.html">pie</a>. Some people find the ring easier to compare than wedges.</p>
+
+<h2 id="options">Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a doughnut chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: doughnut</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>legend</code></td><td>Lists the slices. <code>top</code> by default, or <code>bottom</code> or <code>none</code>.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per slice, in row order.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties: one slice per note.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code>, <code>x-label</code> and <code>y-label</code> have no effect. Like a pie, a doughnut draws only the first number column.</p>
+
+<h2 id="your-own-colours">Your own colours</h2>
+<p>With <code>colors</code>, the slices take the colours in row order: Free, then Pro, then Team.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/doughnut-colors.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: doughnut
+title: Users by plan
+colors: #0E653F, #B9D63A, #101614
+---
+| Plan | Users |
+| ---- | ----- |
+| Free | 6400  |
+| Pro  | 2100  |
+| Team | 900   |
+```</code></pre></div></figure>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="pie.html"><span>Previous</span>Pie</a>
+				<a class="pager-next" href="scatter.html"><span>Next</span>Scatter</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#when-to-use-it">When to use it</a></li><li><a href="#options">Options</a></li><li><a href="#your-own-colours">Your own colours</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Your first chart, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html" aria-current="page">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Your first chart</h1>
+				<p class="lead">The quickest way in is the <strong>Insert chart</strong> command. It puts a working sample block at the cursor, which you then edit.</p>
+
+<h2 id="insert-a-sample">Insert a sample</h2>
+<ol>
+	<li>Open a note and place the cursor on an empty line.</li>
+	<li>Open the command palette (<kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>P</kbd>) and run <strong>S-Charts: Insert chart</strong>.</li>
+	<li>Move the cursor out of the block. The chart draws.</li>
+</ol>
+<p>The command has no hotkey by default. You can add one in <strong>Settings → Hotkeys</strong>.</p>
+
+<h2 id="parts-of-a-block">Parts of a block</h2>
+<div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div>
+<ul>
+	<li><code>```s-chart</code> opens the block. The language must be <code>s-chart</code>.</li>
+	<li>Each line above <code>---</code> is an option, written <code>key: value</code>. Only <code>type</code> is required. All options are in the <a href="options.html">options reference</a>.</li>
+	<li>The <code>---</code> line separates options from data.</li>
+	<li>The table is the data. The first column holds the labels and every other column is one series. See <a href="data.html">Writing the table</a>.</li>
+</ul>
+
+<h2 id="change-the-chart">Change the chart</h2>
+<p>Change <code>type: bar</code> to <code>type: line</code> and move the cursor out of the block: the same table now draws as a line chart. Every chart type reads the same table, so you can try each one without retyping anything.</p>
+
+<h2 id="edit-a-chart-later">Edit a chart later</h2>
+<p>In live preview, hover over a chart and select the <code>&lt;/&gt;</code> button in its top-right corner. The block opens as text. You can also move into it with the arrow keys.</p>
+<p>Reading view shows the chart but has no edit button. Switch to live preview or source mode to edit.</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="index.html"><span>Previous</span>Introduction</a>
+				<a class="pager-next" href="data.html"><span>Next</span>Writing the table</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#insert-a-sample">Insert a sample</a></li><li><a href="#parts-of-a-block">Parts of a block</a></li><li><a href="#change-the-chart">Change the chart</a></li><li><a href="#edit-a-chart-later">Edit a chart later</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<!-- title: Line chart -->
+<p class="lead">Lines show how values change across labels, usually over time. Each series is one line.</p>
+{{example line}}
+
+<h2>When to use it</h2>
+<p>Use a line chart for trends: weight by day, visitors by week, savings by month. To show the size of each value as well as the trend, try an <a href="area.html">area chart</a>.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a line chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: line</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the label axis along the bottom.</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the value axis.</td></tr>
+		<tr><td><code>stacked</code></td><td><code>true</code> adds each line on top of the one before, so the top line is the total.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown at the top for two or more series.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per line.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties. Line charts suit this best: one point per daily note.</td></tr>
+	</tbody>
+</table></div>
+<p><code>horizontal</code> has no effect on line charts. The value axis fits the data rather than starting at zero, so small changes stay visible.</p>
+
+<h2>Gaps</h2>
+<p>An empty cell leaves a gap in the line instead of dropping to zero. Use this for a missing reading.</p>
+{{example line-gap}}
+
+<h2>Stacked</h2>
+{{example line-stacked}}
+
+<h2>Long series</h2>
+<p>With more than 50 rows, the dots on each point are hidden and only the line is drawn. Hover still shows each value.</p>

@@ -1,0 +1,39 @@
+<!-- title: Colours and palettes -->
+<p class="lead">With nothing set, charts use your theme's colours. You can also define palettes in settings, or give one chart its own colours.</p>
+
+<h2>Theme colours</h2>
+<p>The first series takes your theme's accent colour. The rest follow the theme's named colours in this order: blue, green, orange, purple, red, cyan, yellow, pink. After nine series the order starts again.</p>
+<p>Axis text, grid lines, the tooltip and the font also come from the theme. Switch theme, or between light and dark mode, and every open chart redraws in the new colours.</p>
+{{example bar}}
+
+<h2>Colours for one chart</h2>
+<p>Add <code>colors:</code> with hex colours separated by commas. Series take them in order. On a pie or doughnut, slices take them in row order.</p>
+{{example colors}}
+<p>Colours can be <code>#rgb</code>, <code>#rrggbb</code> or <code>#rrggbbaa</code>. Anything else, such as <code>red</code>, is skipped with a warning.</p>
+
+<h2>Palettes</h2>
+<p>A palette is a named list of colours you reuse across charts, such as your brand colours.</p>
+<ol>
+	<li>Open <strong>Settings → S-Charts</strong>.</li>
+	<li>Select <strong>Add palette</strong> and give it a name, such as <code>brand</code>. Names use letters, numbers, <code>-</code> and <code>_</code>, up to 32 characters, and must be unique.</li>
+	<li>Set each colour with the colour picker or by typing a hex code. A palette holds 1 to 12 colours. Use the arrows to reorder them.</li>
+	<li>Add <code>palette: brand</code> to a chart.</li>
+</ol>
+<p>If a chart has more series than the palette has colours, the colours repeat from the start. Palette names match without regard to capital letters.</p>
+<p>Editing a palette redraws every open chart that uses it. Deleting one asks first, and charts that used it fall back to theme colours.</p>
+
+<h2>Theme colours inside a palette</h2>
+<p>A palette colour can be a theme variable such as <code>var(--color-accent)</code>. That colour then follows the theme while the others stay fixed.</p>
+
+<h2>Default palette</h2>
+<p>In <strong>Settings → S-Charts</strong>, set <strong>Default palette</strong> to one of your palettes. Every chart without a <code>palette</code> or <code>colors</code> line then uses it. Set it back to <strong>Theme</strong> to return to theme colours.</p>
+
+<h2>Which colours win</h2>
+<ol>
+	<li><code>colors:</code> in the block</li>
+	<li><code>palette:</code> in the block</li>
+	<li>the default palette from settings</li>
+	<li>the theme's colours</li>
+</ol>
+<p>A <code>palette:</code> name that doesn't exist uses theme colours and shows a notice under the chart:</p>
+<p class="message notice">Palette 'nope' not found, using theme colours.</p>

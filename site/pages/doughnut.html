@@ -1,0 +1,25 @@
+<!-- title: Doughnut chart -->
+<p class="lead">A doughnut is a pie with a hole in the middle. It reads the table the same way: one slice per row.</p>
+{{example doughnut}}
+
+<h2>When to use it</h2>
+<p>Use it where you would use a <a href="pie.html">pie</a>. Some people find the ring easier to compare than wedges.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a doughnut chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: doughnut</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>legend</code></td><td>Lists the slices. <code>top</code> by default, or <code>bottom</code> or <code>none</code>.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per slice, in row order.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties: one slice per note.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code>, <code>x-label</code> and <code>y-label</code> have no effect. Like a pie, a doughnut draws only the first number column.</p>
+
+<h2>Your own colours</h2>
+<p>With <code>colors</code>, the slices take the colours in row order: Free, then Pro, then Team.</p>
+{{example doughnut-colors}}

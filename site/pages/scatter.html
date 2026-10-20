@@ -1,0 +1,30 @@
+<!-- title: Scatter chart -->
+<p class="lead">A scatter plots numbers against numbers. The first column is the horizontal axis, and each other column is a set of points.</p>
+{{example scatter}}
+
+<h2>When to use it</h2>
+<p>Use a scatter to see whether two measures move together: height and weight, hours and score, price and sales.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a scatter chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: scatter</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the horizontal axis, which comes from the first column.</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the vertical axis.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown for two or more sets of points.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per set of points.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties. <code>x</code> must be a number property.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code> and <code>horizontal</code> have no effect.</p>
+
+<h2>The first column must be numbers</h2>
+<p>Unlike other types, the first column of a scatter is a number axis, not labels. A cell such as <code>one</code> stops the chart with "scatter needs a number in the first column". The number formats from <a href="data.html#numbers">Writing the table</a> all work here.</p>
+
+<h2>Two sets of points</h2>
+<p>Each extra column is another set of points, in its own colour. An empty cell skips that point.</p>
+{{example scatter-two}}

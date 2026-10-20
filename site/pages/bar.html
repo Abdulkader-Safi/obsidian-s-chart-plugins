@@ -1,0 +1,37 @@
+<!-- title: Bar chart -->
+<p class="lead">Bars compare values across labels. Each series gets its own bar in every group, side by side.</p>
+{{example bar}}
+
+<h2>When to use it</h2>
+<p>Use a bar chart to compare amounts: revenue by month, tasks by project, hours by person. If the labels are points in time and you care about the trend more than each value, a <a href="line.html">line chart</a> reads better.</p>
+
+<h2>Options</h2>
+<p>Every option for a bar chart, and what it does here. All of them are optional except <code>type</code>.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a bar chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: bar</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the label axis (under the bars, or beside them when horizontal).</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the value axis.</td></tr>
+		<tr><td><code>stacked</code></td><td><code>true</code> stacks the series into one bar per label.</td></tr>
+		<tr><td><code>horizontal</code></td><td><code>true</code> draws the bars left to right, labels down the side.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown at the top when there are two or more series, hidden for one.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. Default 300, or your setting.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per series, for this chart only.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings. Series take its colours in order.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties instead of a table. See <a href="properties.html">Charts from properties</a>.</td></tr>
+	</tbody>
+</table></div>
+<p>The value axis always starts at zero, so bar lengths stay honest.</p>
+
+<h2>Stacked</h2>
+<p>Stacking puts the series on top of each other, so each bar shows the total for its label.</p>
+{{example bar-stacked}}
+
+<h2>Horizontal</h2>
+<p>Horizontal bars leave room for long labels. You can combine <code>horizontal</code> with <code>stacked</code>.</p>
+{{example bar-horizontal}}
+
+<h2>Axis titles and height</h2>
+{{example bar-labels}}

@@ -1,6 +1,6 @@
 # S-Charts
 
-See how it works and how to install it: **[abdulkader-safi.github.io/obsidian-s-chart-plugins](https://abdulkader-safi.github.io/obsidian-s-chart-plugins/)**
+Documentation, with a page for each chart type and its options: **[abdulkader-safi.github.io/obsidian-s-chart-plugins](https://abdulkader-safi.github.io/obsidian-s-chart-plugins/)**
 
 An Obsidian plugin that draws charts from a markdown table inside a code block, or from the properties of many notes. Charts use your theme's colours and redraw when you switch theme or light and dark mode.
 
@@ -128,7 +128,14 @@ npm run build
 
 `test-vault/` holds a note per chart type, a note per error, 30 dated notes for properties charts, a 500-row stress note and a PDF test note. Copy it into a vault folder named `S-Charts test`. `node tests/make-notes.mjs <folder> <count>` writes more dated notes.
 
-The site is the static page in [docs/](docs), served by GitHub Pages from the `master` branch. The design is written up in [spec](spec). Start with [06-build-spec.md](spec/06-build-spec.md).
+The docs site in [docs/](docs) is served by GitHub Pages from the `master` branch. Pages are written as fragments in `site/pages/`, and every chart example lives once in `site/examples.mjs`. To change the docs:
+
+```bash
+node scripts/build-docs.mjs   # writes docs/*.html and site/examples.json
+# with Obsidian open on a note that has an s-chart block, redraw the example images:
+obsidian eval code="globalThis.SCHARTS_ROOT='$PWD';eval(require('fs').readFileSync('$PWD/scripts/capture-examples.js','utf8'))"
+```
+ The design is written up in [spec](spec). Start with [06-build-spec.md](spec/06-build-spec.md).
 
 ## Licence
 

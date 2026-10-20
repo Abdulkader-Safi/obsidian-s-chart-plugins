@@ -1,0 +1,22 @@
+<!-- title: Plugin settings -->
+<p class="lead">Open <strong>Settings → S-Charts</strong>. Every change saves at once and redraws open charts.</p>
+
+<h2>Default palette</h2>
+<p><strong>Theme</strong> uses your theme's colours. Pick one of your palettes to use it on every chart that has no <code>palette</code> or <code>colors</code> line.</p>
+
+<h2>Default height</h2>
+<p>Chart height in pixels for charts without a <code>height</code> line. 120 to 1200, 300 to start. A value outside that range is marked and not saved.</p>
+
+<h2>Animations</h2>
+<p>Charts animate when they first draw. Turn this off to draw them at once. Animation is always off in PDF export.</p>
+
+<h2>Palettes</h2>
+<p>Add, rename, recolour, reorder and delete palettes. Each palette row has a name field, then one row per colour with a colour picker, a hex field, arrows to move it earlier or later, and a button to remove it. See <a href="colours.html#palettes">Colours and palettes</a>.</p>
+<ul>
+	<li>A name that is already taken, or uses characters other than letters, numbers, <code>-</code> and <code>_</code>, is marked and not saved.</li>
+	<li>A colour that isn't a hex code or a <code>var(--name)</code> is marked and not saved.</li>
+	<li>Deleting a palette asks first.</li>
+</ul>
+
+<h2>Where settings are stored</h2>
+<p>In <code>.obsidian/plugins/s-charts/data.json</code> inside your vault, so they sync with the vault.</p>

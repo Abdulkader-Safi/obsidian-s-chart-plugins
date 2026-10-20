@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Plugin settings, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html" aria-current="page">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Plugin settings</h1>
+				<p class="lead">Open <strong>Settings → S-Charts</strong>. Every change saves at once and redraws open charts.</p>
+
+<h2 id="default-palette">Default palette</h2>
+<p><strong>Theme</strong> uses your theme's colours. Pick one of your palettes to use it on every chart that has no <code>palette</code> or <code>colors</code> line.</p>
+
+<h2 id="default-height">Default height</h2>
+<p>Chart height in pixels for charts without a <code>height</code> line. 120 to 1200, 300 to start. A value outside that range is marked and not saved.</p>
+
+<h2 id="animations">Animations</h2>
+<p>Charts animate when they first draw. Turn this off to draw them at once. Animation is always off in PDF export.</p>
+
+<h2 id="palettes">Palettes</h2>
+<p>Add, rename, recolour, reorder and delete palettes. Each palette row has a name field, then one row per colour with a colour picker, a hex field, arrows to move it earlier or later, and a button to remove it. See <a href="colours.html#palettes">Colours and palettes</a>.</p>
+<ul>
+	<li>A name that is already taken, or uses characters other than letters, numbers, <code>-</code> and <code>_</code>, is marked and not saved.</li>
+	<li>A colour that isn't a hex code or a <code>var(--name)</code> is marked and not saved.</li>
+	<li>Deleting a palette asks first.</li>
+</ul>
+
+<h2 id="where-settings-are-stored">Where settings are stored</h2>
+<p>In <code>.obsidian/plugins/s-charts/data.json</code> inside your vault, so they sync with the vault.</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="properties.html"><span>Previous</span>Charts from properties</a>
+				<a class="pager-next" href="errors.html"><span>Next</span>Errors and warnings</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#default-palette">Default palette</a></li><li><a href="#default-height">Default height</a></li><li><a href="#animations">Animations</a></li><li><a href="#palettes">Palettes</a></li><li><a href="#where-settings-are-stored">Where settings are stored</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

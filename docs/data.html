@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Writing the table, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html" aria-current="page">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Writing the table</h1>
+				<p class="lead">Every chart type reads a standard markdown table. The first column holds the labels, and each other column is one series.</p>
+
+<h2 id="labels-and-series">Labels and series</h2>
+<figure class="example"><div class="example-chart"><img src="img/examples/bar.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bar
+title: Monthly revenue
+---
+| Month | Revenue | Costs |
+| ----- | ------- | ----- |
+| Jan   | 4200    | 3100  |
+| Feb   | 5100    | 3300  |
+| Mar   | 6300    | 3500  |
+| Apr   | 5800    | 3400  |
+```</code></pre></div></figure>
+<p>Here <code>Month</code> is the label column, so Jan to Apr run along the bottom. <code>Revenue</code> and <code>Costs</code> are two series, named by their headers. Add a <code>Profit</code> column and you get a third series with no other change.</p>
+<p>The line of dashes under the header is optional. Rows are drawn in the order you write them.</p>
+
+<h2 id="numbers">Numbers</h2>
+<p>Each cell after the first column must be a number. These forms are all read as numbers:</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>You write</th><th>Read as</th></tr></thead>
+	<tbody>
+		<tr><td><code>4200</code></td><td>4200</td></tr>
+		<tr><td><code>4,200</code></td><td>4200, the thousands comma is dropped</td></tr>
+		<tr><td><code>$4,200</code></td><td>4200, currency symbols ($ € £ ¥ ₹) are dropped</td></tr>
+		<tr><td><code>KWD 4,200</code> or <code>4,200 KWD</code></td><td>4200, three-letter currency codes are dropped</td></tr>
+		<tr><td><code>42%</code></td><td>42</td></tr>
+		<tr><td><code>-3.5</code></td><td>-3.5</td></tr>
+		<tr><td>an empty cell</td><td>a gap</td></tr>
+	</tbody>
+</table></div>
+<figure class="example"><div class="example-chart"><img src="img/examples/numbers.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: line
+title: Every number format
+---
+| Month | Value     |
+| ----- | --------- |
+| Jan   | 4200      |
+| Feb   | 4,200     |
+| Mar   | $4,600    |
+| Apr   | KWD 4,900 |
+| May   |           |
+| Jun   | 5,300     |
+```</code></pre></div></figure>
+<p>May is empty, so the line breaks there instead of dropping to zero.</p>
+<p>A cell the plugin can't read, such as <code>lots</code>, stops the chart and names the line and column. See <a href="errors.html">Errors and warnings</a>.</p>
+
+<h2 id="tooltips">Tooltips</h2>
+<p>Hover over a bar, point or slice (tap on mobile) to see its label, series and value, for example "Feb, Revenue: 5,100". Numbers are formatted for your system's language.</p>
+
+<h2 id="right-to-left-text">Right-to-left text</h2>
+<p>Labels, headers and titles in Arabic or Hebrew draw right to left as written.</p>
+
+<h2 id="large-tables">Large tables</h2>
+<p>Tables up to 500 rows by 8 series draw in well under a tenth of a second. On line and area charts with more than 50 rows, the dots on each point are hidden so the line stays readable.</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="first-chart.html"><span>Previous</span>Your first chart</a>
+				<a class="pager-next" href="bar.html"><span>Next</span>Bar</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#labels-and-series">Labels and series</a></li><li><a href="#numbers">Numbers</a></li><li><a href="#tooltips">Tooltips</a></li><li><a href="#right-to-left-text">Right-to-left text</a></li><li><a href="#large-tables">Large tables</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

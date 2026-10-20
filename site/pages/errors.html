@@ -1,0 +1,45 @@
+<!-- title: Errors and warnings -->
+<p class="lead">A block the plugin can't draw shows what went wrong and on which line, instead of leaving a blank space. Line 1 is the first line after <code>```s-chart</code>.</p>
+{{code error-type}}
+<p class="message error">Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</p>
+
+<h2>Errors</h2>
+<p>An error stops the chart from drawing until you fix it.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Message</th><th>Fix</th></tr></thead>
+	<tbody>
+		<tr><td>missing type. Add a line like type: bar.</td><td>Add a <code>type</code> line above <code>---</code>.</td></tr>
+		<tr><td>unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</td><td>Use one of the listed types.</td></tr>
+		<tr><td>no "---" line. Put --- between the settings and the table.</td><td>Add a line with just <code>---</code> above the table.</td></tr>
+		<tr><td>no table after "---". Add a markdown table.</td><td>Add the table, or use <code>source</code> for properties.</td></tr>
+		<tr><td>the table has no number columns. Add a column after the labels.</td><td>The table needs at least two columns.</td></tr>
+		<tr><td>the table has a header but no rows.</td><td>Add at least one row under the header.</td></tr>
+		<tr><td>can't read "lots" as a number in column "Revenue".</td><td>Use a number or leave the cell empty. See <a href="data.html#numbers">number formats</a>.</td></tr>
+		<tr><td>not a table row: "...". Rows start with |.</td><td>Remove the stray line or start it with <code>|</code>.</td></tr>
+		<tr><td>can't read "...". Use key: value.</td><td>Options above <code>---</code> must be <code>key: value</code>.</td></tr>
+		<tr><td>scatter needs a number in the first column, not "...".</td><td>Scatter's first column is an axis. See <a href="scatter.html">Scatter</a>.</td></tr>
+		<tr><td>source needs an x: line / a y: line.</td><td>Add the missing line. See <a href="properties.html">Charts from properties</a>.</td></tr>
+		<tr><td>No notes match "#daily".</td><td>Check the tag or folder path.</td></tr>
+		<tr><td>12 notes match "#daily", but none has the property "date".</td><td>Check the spelling of <code>x</code>.</td></tr>
+	</tbody>
+</table></div>
+
+<h2>Warnings</h2>
+<p>A warning shows under the chart, which still draws.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Message</th><th>Meaning</th></tr></thead>
+	<tbody>
+		<tr><td>unknown key "pallet", did you mean palette?</td><td>The option is ignored. Fix the spelling.</td></tr>
+		<tr><td>height must be a whole number from 120 to 1200. Using the default.</td><td>The default height is used.</td></tr>
+		<tr><td>stacked should be true or false. Using false.</td><td>Same for <code>horizontal</code>.</td></tr>
+		<tr><td>legend "left" should be top, bottom or none. Using top.</td><td>The legend goes at the top.</td></tr>
+		<tr><td>"red" is not a hex colour like #e11d48. Skipped.</td><td>That colour is left out of <code>colors</code>.</td></tr>
+		<tr><td>Palette 'nope' not found, using theme colours.</td><td>Check the name in <strong>Settings → S-Charts</strong>.</td></tr>
+		<tr><td>Pie charts show the first series only (Revenue).</td><td>Pie and doughnut draw one number column.</td></tr>
+		<tr><td>3 notes skipped: no "date" property.</td><td>Those notes lack the <code>x</code> property.</td></tr>
+		<tr><td>this row has more cells than the header. Extra cells ignored.</td><td>Add a header for the extra column, or remove it.</td></tr>
+	</tbody>
+</table></div>
+
+<h2>If the plugin itself fails</h2>
+<p>"S-Charts hit a bug, please report it." means the plugin broke, not your block. Please <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/issues">open an issue</a> with the block's text.</p>

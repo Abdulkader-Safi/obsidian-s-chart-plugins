@@ -1,0 +1,26 @@
+<!-- title: Your first chart -->
+<p class="lead">The quickest way in is the <strong>Insert chart</strong> command. It puts a working sample block at the cursor, which you then edit.</p>
+
+<h2>Insert a sample</h2>
+<ol>
+	<li>Open a note and place the cursor on an empty line.</li>
+	<li>Open the command palette (<kbd>Ctrl</kbd> or <kbd>Cmd</kbd> + <kbd>P</kbd>) and run <strong>S-Charts: Insert chart</strong>.</li>
+	<li>Move the cursor out of the block. The chart draws.</li>
+</ol>
+<p>The command has no hotkey by default. You can add one in <strong>Settings → Hotkeys</strong>.</p>
+
+<h2>Parts of a block</h2>
+{{code intro}}
+<ul>
+	<li><code>```s-chart</code> opens the block. The language must be <code>s-chart</code>.</li>
+	<li>Each line above <code>---</code> is an option, written <code>key: value</code>. Only <code>type</code> is required. All options are in the <a href="options.html">options reference</a>.</li>
+	<li>The <code>---</code> line separates options from data.</li>
+	<li>The table is the data. The first column holds the labels and every other column is one series. See <a href="data.html">Writing the table</a>.</li>
+</ul>
+
+<h2>Change the chart</h2>
+<p>Change <code>type: bar</code> to <code>type: line</code> and move the cursor out of the block: the same table now draws as a line chart. Every chart type reads the same table, so you can try each one without retyping anything.</p>
+
+<h2>Edit a chart later</h2>
+<p>In live preview, hover over a chart and select the <code>&lt;/&gt;</code> button in its top-right corner. The block opens as text. You can also move into it with the arrow keys.</p>
+<p>Reading view shows the chart but has no edit button. Switch to live preview or source mode to edit.</p>

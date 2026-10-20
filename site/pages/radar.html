@@ -1,0 +1,24 @@
+<!-- title: Radar chart -->
+<p class="lead">A radar puts each label on its own spoke and joins each series into a shape.</p>
+{{example radar}}
+
+<h2>When to use it</h2>
+<p>Use a radar to compare a few series across five or more measures, such as skills, product features or survey scores. Keep the measures on the same scale, or the shape misleads.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a radar chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: radar</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown for two or more series.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. The radar fits the height.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per series. The fill is a see-through version of the line colour.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code>, <code>x-label</code> and <code>y-label</code> have no effect. The labels on the spokes come from the first column.</p>
+
+<h2>How many rows</h2>
+<p>Three rows make a triangle, which says little. Five to eight rows read best.</p>

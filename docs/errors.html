@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Errors and warnings, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html" aria-current="page">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Errors and warnings</h1>
+				<p class="lead">A block the plugin can't draw shows what went wrong and on which line, instead of leaving a blank space. Line 1 is the first line after <code>```s-chart</code>.</p>
+<div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: bars
+---
+| Month | Revenue |
+| ----- | ------- |
+| Jan   | 4200    |
+```</code></pre></div>
+<p class="message error">Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</p>
+
+<h2 id="errors">Errors</h2>
+<p>An error stops the chart from drawing until you fix it.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Message</th><th>Fix</th></tr></thead>
+	<tbody>
+		<tr><td>missing type. Add a line like type: bar.</td><td>Add a <code>type</code> line above <code>---</code>.</td></tr>
+		<tr><td>unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</td><td>Use one of the listed types.</td></tr>
+		<tr><td>no "---" line. Put --- between the settings and the table.</td><td>Add a line with just <code>---</code> above the table.</td></tr>
+		<tr><td>no table after "---". Add a markdown table.</td><td>Add the table, or use <code>source</code> for properties.</td></tr>
+		<tr><td>the table has no number columns. Add a column after the labels.</td><td>The table needs at least two columns.</td></tr>
+		<tr><td>the table has a header but no rows.</td><td>Add at least one row under the header.</td></tr>
+		<tr><td>can't read "lots" as a number in column "Revenue".</td><td>Use a number or leave the cell empty. See <a href="data.html#numbers">number formats</a>.</td></tr>
+		<tr><td>not a table row: "...". Rows start with |.</td><td>Remove the stray line or start it with <code>|</code>.</td></tr>
+		<tr><td>can't read "...". Use key: value.</td><td>Options above <code>---</code> must be <code>key: value</code>.</td></tr>
+		<tr><td>scatter needs a number in the first column, not "...".</td><td>Scatter's first column is an axis. See <a href="scatter.html">Scatter</a>.</td></tr>
+		<tr><td>source needs an x: line / a y: line.</td><td>Add the missing line. See <a href="properties.html">Charts from properties</a>.</td></tr>
+		<tr><td>No notes match "#daily".</td><td>Check the tag or folder path.</td></tr>
+		<tr><td>12 notes match "#daily", but none has the property "date".</td><td>Check the spelling of <code>x</code>.</td></tr>
+	</tbody>
+</table></div>
+
+<h2 id="warnings">Warnings</h2>
+<p>A warning shows under the chart, which still draws.</p>
+<div class="table-wrap"><table>
+	<thead><tr><th>Message</th><th>Meaning</th></tr></thead>
+	<tbody>
+		<tr><td>unknown key "pallet", did you mean palette?</td><td>The option is ignored. Fix the spelling.</td></tr>
+		<tr><td>height must be a whole number from 120 to 1200. Using the default.</td><td>The default height is used.</td></tr>
+		<tr><td>stacked should be true or false. Using false.</td><td>Same for <code>horizontal</code>.</td></tr>
+		<tr><td>legend "left" should be top, bottom or none. Using top.</td><td>The legend goes at the top.</td></tr>
+		<tr><td>"red" is not a hex colour like #e11d48. Skipped.</td><td>That colour is left out of <code>colors</code>.</td></tr>
+		<tr><td>Palette 'nope' not found, using theme colours.</td><td>Check the name in <strong>Settings → S-Charts</strong>.</td></tr>
+		<tr><td>Pie charts show the first series only (Revenue).</td><td>Pie and doughnut draw one number column.</td></tr>
+		<tr><td>3 notes skipped: no "date" property.</td><td>Those notes lack the <code>x</code> property.</td></tr>
+		<tr><td>this row has more cells than the header. Extra cells ignored.</td><td>Add a header for the extra column, or remove it.</td></tr>
+	</tbody>
+</table></div>
+
+<h2 id="if-the-plugin-itself-fails">If the plugin itself fails</h2>
+<p>"S-Charts hit a bug, please report it." means the plugin broke, not your block. Please <a href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins/issues">open an issue</a> with the block's text.</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="settings.html"><span>Previous</span>Plugin settings</a>
+				<a class="pager-next" href="pdf.html"><span>Next</span>PDF export</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#errors">Errors</a></li><li><a href="#warnings">Warnings</a></li><li><a href="#if-the-plugin-itself-fails">If the plugin itself fails</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

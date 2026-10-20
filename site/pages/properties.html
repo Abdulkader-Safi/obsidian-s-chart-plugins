@@ -1,0 +1,38 @@
+<!-- title: Charts from properties -->
+<p class="lead">Instead of a table, a chart can read the properties of many notes, one row per note. This suits daily notes, logs and trackers.</p>
+{{example properties}}
+<p>This chart reads every note tagged <code>#daily</code>. Each note becomes one point: its <code>date</code> property along the bottom, its <code>weight</code> property up the side. A daily note looks like this:</p>
+<pre class="plain"><code>---
+tags: [daily]
+date: 2026-01-05
+weight: 82.3
+steps: 8400
+---</code></pre>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>What it does</th></tr></thead>
+	<tbody>
+		<tr><td><code>source</code></td><td>Which notes to read. A tag such as <code>"#daily"</code> also matches nested tags like <code>#daily/work</code>. Anything else is a folder path such as <code>Journal/2026</code>, which includes subfolders.</td></tr>
+		<tr><td><code>x</code></td><td>The property for the labels or x axis. Rows are sorted by it.</td></tr>
+		<tr><td><code>y</code></td><td>One property to plot, or several separated by commas. Each is one series.</td></tr>
+	</tbody>
+</table></div>
+<p>There is no <code>---</code> line and no table. All other options work as usual.</p>
+
+<h2>Several properties</h2>
+{{example properties-two}}
+
+<h2>Sorting and missing values</h2>
+<ul>
+	<li>Rows are sorted by <code>x</code>. Dates written <code>YYYY-MM-DD</code> come out in date order, and numbers sort as numbers.</li>
+	<li>A note without the <code>x</code> property is skipped, and the chart says how many: "3 notes skipped: no "date" property."</li>
+	<li>A missing or unreadable <code>y</code> value leaves a gap.</li>
+	<li>Property names match without regard to capital letters.</li>
+</ul>
+
+<h2>Live updates</h2>
+<p>Change a property in a matching note and the chart updates within half a second, even when the chart is in another note. Adding, renaming or deleting a matching note updates it too.</p>
+
+<h2>Speed</h2>
+<p>2,000 matching notes build and draw in about 55 ms on a laptop.</p>

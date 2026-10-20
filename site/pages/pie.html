@@ -1,0 +1,27 @@
+<!-- title: Pie chart -->
+<p class="lead">A pie shows how a whole splits into parts. Each row of the table is one slice.</p>
+{{example pie}}
+
+<h2>When to use it</h2>
+<p>Use a pie for a handful of parts that add up to something: visits by channel, budget by category. Past six or seven slices it gets hard to read, and a <a href="bar.html">bar chart</a> compares the parts better.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a pie chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: pie</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>legend</code></td><td>Lists the slices. <code>top</code> by default, or <code>bottom</code> or <code>none</code>.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. The pie fits the height.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per slice, in row order.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings. Slices take its colours in order.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties: one slice per note.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code>, <code>x-label</code> and <code>y-label</code> have no effect on a pie.</p>
+
+<h2>One series only</h2>
+<p>A pie draws the first number column. If the table has more, the chart says "Pie charts show the first series only" and names the column it used. Move the column you want to the second position.</p>
+
+<h2>Legend at the bottom</h2>
+{{example pie-legend}}

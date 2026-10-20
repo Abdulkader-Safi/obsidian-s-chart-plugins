@@ -1,0 +1,27 @@
+<!-- title: Area chart -->
+<p class="lead">An area chart is a line chart with the space under each line filled in.</p>
+{{example area}}
+
+<h2>When to use it</h2>
+<p>Use an area chart when the size of the values matters as well as their trend, or stack it to show how parts add up to a total over time.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On an area chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: area</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title for the label axis.</td></tr>
+		<tr><td><code>y-label</code></td><td>Title for the value axis.</td></tr>
+		<tr><td><code>stacked</code></td><td><code>true</code> stacks the areas. Each one fills down to the series below it.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per series. The fill is a see-through version of the line colour.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties.</td></tr>
+	</tbody>
+</table></div>
+<p>The value axis starts at zero, because the filled area stands for the amount.</p>
+
+<h2>Stacked</h2>
+{{example area-stacked}}

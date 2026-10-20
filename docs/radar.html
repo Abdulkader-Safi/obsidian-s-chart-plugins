@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Radar chart, S-Charts docs</title>
+	<meta name="description" content="Documentation for S-Charts, the Obsidian plugin that draws charts from markdown tables and note properties.">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@600;800&family=Funnel+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header class="topbar">
+		<a class="logo" href="index.html"><span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>S-Charts <span class="logo-docs">docs</span></a>
+		<button class="menu" type="button" aria-expanded="false" aria-controls="sidebar">Menu</button>
+		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
+	</header>
+	<div class="shell">
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html" aria-current="page">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<main class="content">
+			<article class="doc">
+				<h1>Radar chart</h1>
+				<p class="lead">A radar puts each label on its own spoke and joins each series into a shape.</p>
+<figure class="example"><div class="example-chart"><img src="img/examples/radar.png" alt="The chart this block draws" loading="lazy" width="1168" height="688"></div><div class="code"><button class="copy" type="button">Copy</button><pre><code>```s-chart
+type: radar
+title: Skills
+---
+| Skill   | Ali | Sara |
+| ------- | --- | ---- |
+| Design  | 7   | 9    |
+| Code    | 9   | 6    |
+| Writing | 5   | 8    |
+| Sales   | 4   | 7    |
+| Support | 8   | 5    |
+```</code></pre></div></figure>
+
+<h2 id="when-to-use-it">When to use it</h2>
+<p>Use a radar to compare a few series across five or more measures, such as skills, product features or survey scores. Keep the measures on the same scale, or the shape misleads.</p>
+
+<h2 id="options">Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a radar chart</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: radar</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>legend</code></td><td><code>top</code>, <code>bottom</code> or <code>none</code>. Shown for two or more series.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. The radar fits the height.</td></tr>
+		<tr><td><code>colors</code></td><td>One colour per series. The fill is a see-through version of the line colour.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code>, <code>x-label</code> and <code>y-label</code> have no effect. The labels on the spokes come from the first column.</p>
+
+<h2 id="how-many-rows">How many rows</h2>
+<p>Three rows make a triangle, which says little. Five to eight rows read best.</p>
+
+			</article>
+			<nav class="pager" aria-label="Previous and next page">
+				<a class="pager-prev" href="scatter.html"><span>Previous</span>Scatter</a>
+				<a class="pager-next" href="options.html"><span>Next</span>Options reference</a>
+			</nav>
+		</main>
+		<aside class="toc" aria-label="On this page"><p>On this page</p><ul><li><a href="#when-to-use-it">When to use it</a></li><li><a href="#options">Options</a></li><li><a href="#how-many-rows">How many rows</a></li></ul></aside>
+	</div>
+	<footer class="footer"><p>© 2026 <a href="https://abdulkadersafi.com">Abdulkader Safi</a></p></footer>
+	<script src="site.js"></script>
+</body>
+</html>

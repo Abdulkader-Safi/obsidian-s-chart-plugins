@@ -8,7 +8,7 @@ export default defineConfig(
 		'dist',
 		'esbuild.config.mjs',
 		'version-bump.mjs',
-		'test-vault',
+		'test-vault', 'brag-output',
 		'docs',
 		'site',
 		'scripts',

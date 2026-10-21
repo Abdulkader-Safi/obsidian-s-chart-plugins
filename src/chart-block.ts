@@ -5,7 +5,7 @@ import {
 	RadialLinearScale, ScatterController, Title, Tooltip,
 } from 'chart.js';
 import { resolveColors } from './colors.ts';
-import { colorCount, toChartConfig } from './config.ts';
+import { colorCount, snapRatio, toChartConfig } from './config.ts';
 import { parse } from './parse.ts';
 import { loadRows, matches } from './properties.ts';
 import type { SChartsSettings } from './settings.ts';
@@ -33,6 +33,7 @@ let labelCount = 0;
 /** Owns one chart. Every redraw runs parse to config again from the block text. */
 export class ChartBlock extends MarkdownRenderChild {
 	private chart?: Chart;
+	private pixels?: ResizeObserver;
 	/** Notes the last properties build used, so a note that stops matching still triggers a redraw. */
 	private paths = new Set<string>();
 
@@ -66,11 +67,13 @@ export class ChartBlock extends MarkdownRenderChild {
 
 	onunload() {
 		this.host.blocks.delete(this);
+		this.pixels?.disconnect();
 		this.chart?.destroy();
 		this.chart = undefined;
 	}
 
 	redraw() {
+		this.pixels?.disconnect();
 		this.chart?.destroy();
 		this.chart = undefined;
 		this.containerEl.empty();
@@ -136,7 +139,29 @@ export class ChartBlock extends MarkdownRenderChild {
 			this.chart = undefined;
 			canvas.remove();
 			wrap.addClass('is-printed');
+		} else {
+			this.snapToPixels(canvas);
 		}
 		if (notices.length) renderMessages(el, 's-chart-notice', notices);
+	}
+
+	/** Sizes the canvas to the exact screen pixels the browser gives it, so charts stay sharp at any zoom. */
+	private snapToPixels(canvas: HTMLCanvasElement) {
+		const observer = new ResizeObserver(([entry]) => {
+			const box = entry?.devicePixelContentBoxSize?.[0];
+			const chart = this.chart;
+			if (!box || !chart || chart.canvas !== canvas) return;
+			const ratio = snapRatio(chart.width, chart.height, box.inlineSize, box.blockSize);
+			if (ratio === undefined || ratio === chart.options.devicePixelRatio) return;
+			chart.options.devicePixelRatio = ratio;
+			chart.resize();
+		});
+		try {
+			observer.observe(canvas, { box: 'device-pixel-content-box' });
+		} catch {
+			// Safari, and so Obsidian on iOS, has no device pixel box. Its ratios are whole numbers anyway.
+			return;
+		}
+		this.pixels = observer;
 	}
 }

@@ -125,3 +125,16 @@ export function toChartConfig(
 		},
 	} as ChartConfiguration;
 }
+
+/**
+ * A pixel ratio at which Chart.js sizes the canvas to exactly `devW` x `devH` screen pixels.
+ * Chart.js drops the fraction from `css * ratio`, so at zoom levels like 120% the canvas comes out
+ * one pixel short and the browser stretches it, blurring text and lines. Undefined if no ratio fits both.
+ */
+export function snapRatio(cssW: number, cssH: number, devW: number, devH: number): number | undefined {
+	if (!(cssW > 0 && cssH > 0 && devW > 0 && devH > 0)) return undefined;
+	// Chart.js rounds to one decimal before dropping the fraction, so stay below devW + 0.95.
+	const lo = Math.max(devW / cssW, devH / cssH);
+	const hi = Math.min((devW + 0.95) / cssW, (devH + 0.95) / cssH);
+	return lo < hi ? (lo + hi) / 2 : undefined;
+}

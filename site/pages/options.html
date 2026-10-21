@@ -5,7 +5,7 @@
 <div class="table-wrap"><table>
 	<thead><tr><th>Option</th><th>Values</th><th>Default</th><th>What it does</th></tr></thead>
 	<tbody>
-		<tr><td><code>type</code></td><td><code>bar</code> <code>line</code> <code>area</code> <code>pie</code> <code>doughnut</code> <code>scatter</code> <code>radar</code></td><td>required</td><td>The chart type.</td></tr>
+		<tr><td><code>type</code></td><td><code>bar</code> <code>line</code> <code>area</code> <code>pie</code> <code>doughnut</code> <code>scatter</code> <code>radar</code> <code>heatmap</code></td><td>required</td><td>The chart type.</td></tr>
 		<tr><td><code>title</code></td><td>any text</td><td>none</td><td>Text above the chart.</td></tr>
 		<tr><td><code>x-label</code></td><td>any text</td><td>none</td><td>Title for the label axis.</td></tr>
 		<tr><td><code>y-label</code></td><td>any text</td><td>none</td><td>Title for the value axis.</td></tr>
@@ -23,16 +23,17 @@
 <p><code>yes</code> and <code>no</code> also work for <code>true</code> and <code>false</code>. A <code>height</code> outside 120 to 1200 is ignored with a warning.</p>
 
 <h2>Which options work on which type</h2>
-<p>Options that don't apply to a type are ignored without a warning, so you can switch <code>type</code> freely.</p>
+<p>Options that don't apply to a type are ignored without a warning, so you can switch <code>type</code> freely. A heatmap uses only the first colour from <code>colors</code> or <code>palette</code>.</p>
 <div class="table-wrap"><table class="matrix">
-	<thead><tr><th>Option</th><th>Bar</th><th>Line</th><th>Area</th><th>Pie</th><th>Doughnut</th><th>Scatter</th><th>Radar</th></tr></thead>
+	<thead><tr><th>Option</th><th>Bar</th><th>Line</th><th>Area</th><th>Pie</th><th>Doughnut</th><th>Scatter</th><th>Radar</th><th>Heatmap</th></tr></thead>
 	<tbody>
-		<tr><td><code>title</code>, <code>legend</code>, <code>height</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-		<tr><td><code>colors</code>, <code>palette</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-		<tr><td><code>x-label</code>, <code>y-label</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td></tr>
-		<tr><td><code>stacked</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-		<tr><td><code>horizontal</code></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-		<tr><td><code>source</code>, <code>x</code>, <code>y</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>title</code>, <code>height</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>legend</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+		<tr><td><code>colors</code>, <code>palette</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>x-label</code>, <code>y-label</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td><td class="yes">Yes</td></tr>
+		<tr><td><code>stacked</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>horizontal</code></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>source</code>, <code>x</code>, <code>y</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
 	</tbody>
 </table></div>
 

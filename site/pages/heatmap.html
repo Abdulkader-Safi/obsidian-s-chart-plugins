@@ -1,0 +1,30 @@
+<!-- title: Heatmap -->
+<p class="lead">A heatmap is a grid of cells shaded by value: the bigger the number, the stronger the colour. The value is printed in each cell, and a scale under the chart shows the lowest and highest.</p>
+{{example heatmap}}
+
+<h2>When to use it</h2>
+<p>Use a heatmap when both the rows and the columns mean something and you want to spot patterns across the grid. Cohort retention, activity by day and hour, and scores by person and topic all fit. To compare a few totals, a <a href="bar.html">bar chart</a> is easier to read.</p>
+
+<h2>How the table maps</h2>
+<p>Each table row is a row of cells, labelled by its first column, in the order you wrote them. Each other column is a column of cells, labelled by its header. In the example above, Jan to Jun are the rows and Week 0 to Week 5 are the columns.</p>
+<p>Leave a cell empty to show a blank. Empty cells are drawn faintly, so the grid keeps its shape. A <code>0</code> is a real value and gets the lightest shade.</p>
+
+<h2>Options</h2>
+<div class="table-wrap"><table>
+	<thead><tr><th>Option</th><th>On a heatmap</th></tr></thead>
+	<tbody>
+		<tr><td><code>type: heatmap</code></td><td>Required.</td></tr>
+		<tr><td><code>title</code></td><td>Text above the chart.</td></tr>
+		<tr><td><code>x-label</code></td><td>Title above the column headers.</td></tr>
+		<tr><td><code>y-label</code></td><td>Title beside the row labels.</td></tr>
+		<tr><td><code>height</code></td><td>Chart height in pixels, 120 to 1200. Cells grow to fill it.</td></tr>
+		<tr><td><code>colors</code></td><td>The first colour shades every cell. Other colours are ignored.</td></tr>
+		<tr><td><code>palette</code></td><td>A palette from settings. Its first colour is used.</td></tr>
+		<tr><td><code>source, x, y</code></td><td>Draw from note properties: one row per note, one column per property in <code>y</code>.</td></tr>
+	</tbody>
+</table></div>
+<p><code>stacked</code>, <code>horizontal</code> and <code>legend</code> have no effect. The scale under the chart takes the place of a legend.</p>
+
+<h2>Your own colour</h2>
+<p>By default the cells use your theme's accent colour. Set <code>colors</code> to pick another. Cells run from a faint tint for the lowest value to the full colour for the highest.</p>
+{{example heatmap-colors}}

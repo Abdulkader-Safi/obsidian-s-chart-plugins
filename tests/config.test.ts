@@ -25,3 +25,10 @@ test('font names lose double quotes, which break the exported SVG', () => {
 	const option = toChartOption(spec, ['#000'], { ...theme, font: '"Inter", sans-serif' }, false, 300) as { textStyle: { fontFamily: string } };
 	assert.equal(option.textStyle.fontFamily, "'Inter', sans-serif");
 });
+
+test('heatmap never shows a legend, even when asked', () => {
+	const { spec } = parse('type: heatmap\nlegend: top\n---\n| R | A | B |\n| - | - | - |\n| x | 1 | 2 |');
+	assert.ok(spec);
+	const option = toChartOption(spec, ['#000'], theme, false, 300) as { legend: { show: boolean } };
+	assert.equal(option.legend.show, false);
+});

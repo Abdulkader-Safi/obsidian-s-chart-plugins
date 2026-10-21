@@ -89,6 +89,22 @@ export const examples = {
 | Sales   | 4   | 7    |
 | Support | 8   | 5    |`),
 
+	'heatmap': block('type: heatmap\ntitle: Retention by cohort (%)', `| Cohort | Week 0 | Week 1 | Week 2 | Week 3 | Week 4 | Week 5 |
+| ------ | ------ | ------ | ------ | ------ | ------ | ------ |
+| Jan    | 100    | 62     | 48     | 41     | 37     | 34     |
+| Feb    | 100    | 65     | 51     | 44     | 40     |        |
+| Mar    | 100    | 68     | 55     | 47     |        |        |
+| Apr    | 100    | 70     | 57     |        |        |        |
+| May    | 100    | 72     |        |        |        |        |
+| Jun    | 100    |        |        |        |        |        |`),
+	'heatmap-colors': block('type: heatmap\ntitle: Commits by day and hour\ncolors: #ea580c\nx-label: Hour\ny-label: Day', `| Day | 9am | 11am | 1pm | 3pm | 5pm | 7pm |
+| --- | --- | ---- | --- | --- | --- | --- |
+| Mon | 4   | 9    | 3   | 7   | 5   | 1   |
+| Tue | 6   | 11   | 4   | 8   | 6   | 2   |
+| Wed | 5   | 8    | 2   | 10  | 7   | 0   |
+| Thu | 7   | 12   | 5   | 9   | 4   | 3   |
+| Fri | 3   | 6    | 2   | 4   | 2   | 0   |`),
+
 	'colors': block('type: bar\ntitle: Monthly revenue\ncolors: #e11d48, #0ea5e9', SALES),
 
 	'properties': 'type: line\ntitle: Weight\nsource: "#daily"\nx: date\ny: weight',

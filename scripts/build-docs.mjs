@@ -19,6 +19,7 @@ const NAV = [
 		['doughnut', 'Doughnut'],
 		['scatter', 'Scatter'],
 		['radar', 'Radar'],
+		['heatmap', 'Heatmap'],
 	] },
 	{ title: 'Customise', items: [
 		['options', 'Options reference'],
@@ -115,6 +116,10 @@ function layout(page, title, body) {
 `;
 }
 
+// The capture script reads this to know what to render. Written first, so a missing image
+// for a new example doesn't stop the capture from finding it.
+writeFileSync('site/examples.json', JSON.stringify(examples, null, '\t') + '\n');
+
 for (const [page] of pages) {
 	const raw = readFileSync(`site/pages/${page}.html`, 'utf8');
 	// The first line of each fragment is its title: <!-- title: ... -->
@@ -123,6 +128,4 @@ for (const [page] of pages) {
 	writeFileSync(`docs/${page}.html`, layout(page, m[1], expand(raw.slice(m[0].length))));
 }
 
-// The capture script reads this to know what to render.
-writeFileSync('site/examples.json', JSON.stringify(examples, null, '\t') + '\n');
 console.log(`Built ${pages.length} pages`);

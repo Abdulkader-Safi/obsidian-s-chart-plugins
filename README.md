@@ -48,7 +48,7 @@ title: Retention by cohort (%)
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/gallery-dark.png">
-  <img src="docs/img/gallery-light.png" alt="Nine example charts: bar, line, area, pie, doughnut, scatter, radar, stacked horizontal bar, and a line chart built from note properties.">
+  <img src="docs/img/gallery-light.png" alt="Nine example charts: bar, line, area, pie, doughnut, scatter, radar, heatmap, and a line chart built from note properties.">
 </picture>
 
 - Pie and doughnut use the first series and say so when the table has more.
@@ -119,7 +119,7 @@ A block the plugin can't read shows the line and the problem instead of a chart,
 
 ## PDF export
 
-Charts come out fully drawn in **Export to PDF**, scaled to the page width, at twice the screen's pixel density. Animation is always off while exporting.
+Charts come out fully drawn in **Export to PDF** as vector images scaled to the page width, so they stay sharp at any zoom. Animation is always off while exporting.
 
 ## Settings
 

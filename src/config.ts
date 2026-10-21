@@ -46,7 +46,8 @@ export function toChartOption(
 	// ECharts writes the font inside a double-quoted SVG attribute without escaping it.
 	const font = theme.font.replace(/"/g, "'");
 	const round = type === 'pie' || type === 'doughnut';
-	const legend = spec.legend ?? (round || (spec.series.length > 1 && type !== 'heatmap') ? 'top' : 'none');
+	// A heatmap's scale under the chart does the legend's job.
+	const legend = type === 'heatmap' ? 'none' : spec.legend ?? (round || spec.series.length > 1 ? 'top' : 'none');
 
 	// Vertical space taken by the title and a top legend, so the plot starts below them.
 	const titleH = spec.title ? 30 : 0;
@@ -56,7 +57,7 @@ export function toChartOption(
 	const horizontal = spec.horizontal && type === 'bar';
 	const below = horizontal ? spec.yLabel : spec.xLabel;
 	const beside = horizontal ? spec.xLabel : spec.yLabel;
-	const bottom = (legend === 'bottom' ? 38 : 16) + (below ? 28 : 0);
+	const bottom = (legend === 'bottom' ? 48 : 16) + (below ? 24 : 0);
 
 	const line = { lineStyle: { color: theme.border } };
 	const axis = {
@@ -160,8 +161,9 @@ export function toChartOption(
 		const max = vs.length ? Math.max(...vs) : 1;
 		const strong = (v: number) => max > min && (v - min) / (max - min) > 0.5;
 		const gap = { borderColor: theme.background, borderWidth: 3, borderRadius: 6 };
-		option.grid = { top: titleH + 28, bottom: 40 + (spec.xLabel ? 22 : 0), left: 8, right: 8 };
-		option.xAxis = { ...category(spec.series.map((s) => s.name), spec.xLabel), position: 'top', axisLine: { show: false } };
+		// The column headers sit on top, so an x-label goes above them, under the title.
+		option.grid = { top: titleH + 28 + (spec.xLabel ? 22 : 0), bottom: 40, left: 8, right: 8 };
+		option.xAxis = { ...category(spec.series.map((s) => s.name), spec.xLabel, 26), position: 'top', axisLine: { show: false } };
 		option.yAxis = { ...category(spec.labels, spec.yLabel, 40), inverse: true, axisLine: { show: false } };
 		option.visualMap = {
 			type: 'continuous',

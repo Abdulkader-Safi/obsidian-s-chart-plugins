@@ -1,7 +1,7 @@
 <!-- title: Errors and warnings -->
 <p class="lead">A block the plugin can't draw shows what went wrong and on which line, instead of leaving a blank space. Line 1 is the first line after <code>```s-chart</code>.</p>
 {{code error-type}}
-<p class="message error">Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</p>
+<p class="message error">Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter, radar or heatmap.</p>
 
 <h2>Errors</h2>
 <p>An error stops the chart from drawing until you fix it.</p>
@@ -9,7 +9,7 @@
 	<thead><tr><th>Message</th><th>Fix</th></tr></thead>
 	<tbody>
 		<tr><td>missing type. Add a line like type: bar.</td><td>Add a <code>type</code> line above <code>---</code>.</td></tr>
-		<tr><td>unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.</td><td>Use one of the listed types.</td></tr>
+		<tr><td>unknown type "bars". Use bar, line, area, pie, doughnut, scatter, radar or heatmap.</td><td>Use one of the listed types.</td></tr>
 		<tr><td>no "---" line. Put --- between the settings and the table.</td><td>Add a line with just <code>---</code> above the table.</td></tr>
 		<tr><td>no table after "---". Add a markdown table.</td><td>Add the table, or use <code>source</code> for properties.</td></tr>
 		<tr><td>the table has no number columns. Add a column after the labels.</td><td>The table needs at least two columns.</td></tr>

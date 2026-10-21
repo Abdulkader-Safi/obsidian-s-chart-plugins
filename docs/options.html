@@ -17,7 +17,7 @@
 		<a class="btn btn-ink" href="https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins">GitHub</a>
 	</header>
 	<div class="shell">
-		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html" aria-current="page">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
+		<nav class="sidebar" id="sidebar" aria-label="Docs"><div class="nav-section"><p>Getting started</p><ul><li><a href="index.html">Introduction</a></li><li><a href="first-chart.html">Your first chart</a></li><li><a href="data.html">Writing the table</a></li></ul></div><div class="nav-section"><p>Chart types</p><ul><li><a href="bar.html">Bar</a></li><li><a href="line.html">Line</a></li><li><a href="area.html">Area</a></li><li><a href="pie.html">Pie</a></li><li><a href="doughnut.html">Doughnut</a></li><li><a href="scatter.html">Scatter</a></li><li><a href="radar.html">Radar</a></li><li><a href="heatmap.html">Heatmap</a></li></ul></div><div class="nav-section"><p>Customise</p><ul><li><a href="options.html" aria-current="page">Options reference</a></li><li><a href="colours.html">Colours and palettes</a></li><li><a href="properties.html">Charts from properties</a></li></ul></div><div class="nav-section"><p>Reference</p><ul><li><a href="settings.html">Plugin settings</a></li><li><a href="errors.html">Errors and warnings</a></li><li><a href="pdf.html">PDF export</a></li></ul></div><a class="more" href="https://community.obsidian.md/users/abdulkader-safi">More plugins by Abdulkader Safi</a></nav>
 		<main class="content">
 			<article class="doc">
 				<h1>Options reference</h1>
@@ -27,7 +27,7 @@
 <div class="table-wrap"><table>
 	<thead><tr><th>Option</th><th>Values</th><th>Default</th><th>What it does</th></tr></thead>
 	<tbody>
-		<tr><td><code>type</code></td><td><code>bar</code> <code>line</code> <code>area</code> <code>pie</code> <code>doughnut</code> <code>scatter</code> <code>radar</code></td><td>required</td><td>The chart type.</td></tr>
+		<tr><td><code>type</code></td><td><code>bar</code> <code>line</code> <code>area</code> <code>pie</code> <code>doughnut</code> <code>scatter</code> <code>radar</code> <code>heatmap</code></td><td>required</td><td>The chart type.</td></tr>
 		<tr><td><code>title</code></td><td>any text</td><td>none</td><td>Text above the chart.</td></tr>
 		<tr><td><code>x-label</code></td><td>any text</td><td>none</td><td>Title for the label axis.</td></tr>
 		<tr><td><code>y-label</code></td><td>any text</td><td>none</td><td>Title for the value axis.</td></tr>
@@ -45,16 +45,17 @@
 <p><code>yes</code> and <code>no</code> also work for <code>true</code> and <code>false</code>. A <code>height</code> outside 120 to 1200 is ignored with a warning.</p>
 
 <h2 id="which-options-work-on-which-type">Which options work on which type</h2>
-<p>Options that don't apply to a type are ignored without a warning, so you can switch <code>type</code> freely.</p>
+<p>Options that don't apply to a type are ignored without a warning, so you can switch <code>type</code> freely. A heatmap uses only the first colour from <code>colors</code> or <code>palette</code>.</p>
 <div class="table-wrap"><table class="matrix">
-	<thead><tr><th>Option</th><th>Bar</th><th>Line</th><th>Area</th><th>Pie</th><th>Doughnut</th><th>Scatter</th><th>Radar</th></tr></thead>
+	<thead><tr><th>Option</th><th>Bar</th><th>Line</th><th>Area</th><th>Pie</th><th>Doughnut</th><th>Scatter</th><th>Radar</th><th>Heatmap</th></tr></thead>
 	<tbody>
-		<tr><td><code>title</code>, <code>legend</code>, <code>height</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-		<tr><td><code>colors</code>, <code>palette</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
-		<tr><td><code>x-label</code>, <code>y-label</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td></tr>
-		<tr><td><code>stacked</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-		<tr><td><code>horizontal</code></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
-		<tr><td><code>source</code>, <code>x</code>, <code>y</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>title</code>, <code>height</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>legend</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td></tr>
+		<tr><td><code>colors</code>, <code>palette</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+		<tr><td><code>x-label</code>, <code>y-label</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="yes">Yes</td><td class="no">No</td><td class="yes">Yes</td></tr>
+		<tr><td><code>stacked</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>horizontal</code></td><td class="yes">Yes</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td></tr>
+		<tr><td><code>source</code>, <code>x</code>, <code>y</code></td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
 	</tbody>
 </table></div>
 
@@ -76,7 +77,7 @@ pallet: brand
 
 			</article>
 			<nav class="pager" aria-label="Previous and next page">
-				<a class="pager-prev" href="radar.html"><span>Previous</span>Radar</a>
+				<a class="pager-prev" href="heatmap.html"><span>Previous</span>Heatmap</a>
 				<a class="pager-next" href="colours.html"><span>Next</span>Colours and palettes</a>
 			</nav>
 		</main>

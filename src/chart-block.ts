@@ -1,21 +1,20 @@
 import { MarkdownRenderChild, TFile, debounce, type App } from 'obsidian';
-import {
-	ArcElement, BarController, BarElement, CategoryScale, Chart, DoughnutController, Filler, Legend,
-	LinearScale, LineController, LineElement, PieController, PointElement, RadarController,
-	RadialLinearScale, ScatterController, Title, Tooltip,
-} from 'chart.js';
+import type { EChartsType } from 'echarts/core';
 import { resolveColors } from './colors.ts';
-import { colorCount, snapRatio, toChartConfig } from './config.ts';
+import { colorCount, toChartOption } from './config.ts';
 import { parse } from './parse.ts';
 import { loadRows, matches } from './properties.ts';
 import type { SChartsSettings } from './settings.ts';
 import { readTheme } from './theme.ts';
 
-Chart.register(
-	ArcElement, BarController, BarElement, CategoryScale, DoughnutController, Filler, Legend,
-	LinearScale, LineController, LineElement, PieController, PointElement, RadarController,
-	RadialLinearScale, ScatterController, Title, Tooltip,
-);
+type ECharts = typeof import('./echarts.ts');
+let echarts: ECharts | undefined;
+
+/** ECharts is about 600 KB, so it loads with the first chart instead of slowing Obsidian's startup. */
+async function loadECharts(): Promise<ECharts> {
+	echarts ??= await import('./echarts.ts');
+	return echarts;
+}
 
 export interface BlockHost {
 	app: App;
@@ -32,8 +31,10 @@ let labelCount = 0;
 
 /** Owns one chart. Every redraw runs parse to config again from the block text. */
 export class ChartBlock extends MarkdownRenderChild {
-	private chart?: Chart;
-	private pixels?: ResizeObserver;
+	private chart?: EChartsType;
+	private resizer?: ResizeObserver;
+	/** Counts draws, so a draw still waiting for ECharts can tell it was replaced. */
+	private drawn = 0;
 	/** Notes the last properties build used, so a note that stops matching still triggers a redraw. */
 	private paths = new Set<string>();
 
@@ -67,15 +68,19 @@ export class ChartBlock extends MarkdownRenderChild {
 
 	onunload() {
 		this.host.blocks.delete(this);
-		this.pixels?.disconnect();
-		this.chart?.destroy();
+		this.drawn++;
+		this.clear();
+	}
+
+	private clear() {
+		this.resizer?.disconnect();
+		this.resizer = undefined;
+		this.chart?.dispose();
 		this.chart = undefined;
 	}
 
 	redraw() {
-		this.pixels?.disconnect();
-		this.chart?.destroy();
-		this.chart = undefined;
+		this.clear();
 		this.containerEl.empty();
 		try {
 			this.draw();
@@ -121,47 +126,42 @@ export class ChartBlock extends MarkdownRenderChild {
 
 		// Obsidian's PDF export renders the note again inside .print in a hidden window.
 		const printing = !!el.closest('.print');
+		const height = spec.height ?? settings.defaultHeight;
 		const wrap = el.createDiv({ cls: 's-chart' });
-		wrap.setCssProps({ '--s-chart-height': `${spec.height ?? settings.defaultHeight}px` });
+		wrap.setCssProps({ '--s-chart-height': `${height}px` });
 		const label = `${spec.title ?? 'Chart'}: ${spec.type} chart of ${spec.series.map((s) => s.name).join(', ')}`;
 		// aria-labelledby, not aria-label: Obsidian shows every aria-label as a hover tooltip.
 		const labelId = `s-chart-label-${++labelCount}`;
 		wrap.createSpan({ cls: 's-chart-label', text: label, attr: { id: labelId } });
-		const canvas = wrap.createEl('canvas', { attr: { role: 'img', 'aria-labelledby': labelId } });
-		const config = toChartConfig(spec, colors, theme, settings.animations && !printing);
-		if (printing && config.options) config.options.devicePixelRatio = 2;
-		this.chart = new Chart(canvas, config);
-
-		if (printing) {
-			// A canvas prints at screen width and gets cut off; an image scales to the page.
-			wrap.createEl('img', { cls: 's-chart-print', attr: { src: this.chart.toBase64Image(), alt: label } });
-			this.chart.destroy();
-			this.chart = undefined;
-			canvas.remove();
-			wrap.addClass('is-printed');
-		} else {
-			this.snapToPixels(canvas);
-		}
+		const box = wrap.createDiv({ cls: 's-chart-plot', attr: { role: 'img', 'aria-labelledby': labelId } });
+		const option = toChartOption(spec, colors, theme, settings.animations && !printing, height);
+		const draw = ++this.drawn;
+		const render = (lib: ECharts) => {
+			if (draw !== this.drawn) return;
+			if (printing) {
+				// PDF export: a fixed-size SVG as an image scales to the page and stays vector.
+				const chart = lib.init(null, null, { renderer: 'svg', ssr: true, width: 700, height });
+				chart.setOption(option);
+				const svg = chart.renderToSVGString();
+				chart.dispose();
+				box.createEl('img', { cls: 's-chart-print', attr: { src: `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`, alt: label } });
+				wrap.addClass('is-printed');
+				return;
+			}
+			const chart = lib.init(box, null, { renderer: 'svg' });
+			chart.setOption(option);
+			this.chart = chart;
+			this.resizer = new ResizeObserver(() => chart.resize());
+			this.resizer.observe(box);
+		};
+		const fail = (err: unknown) => {
+			console.error('S-Charts render error', err);
+			el.empty();
+			renderMessages(el, 's-chart-error', [{ text: 'S-Charts hit a bug, please report it.' }]);
+		};
+		// Once ECharts is loaded, draw straight away: PDF export doesn't wait for promises.
+		if (echarts) render(echarts);
+		else loadECharts().then(render).catch(fail);
 		if (notices.length) renderMessages(el, 's-chart-notice', notices);
-	}
-
-	/** Sizes the canvas to the exact screen pixels the browser gives it, so charts stay sharp at any zoom. */
-	private snapToPixels(canvas: HTMLCanvasElement) {
-		const observer = new ResizeObserver(([entry]) => {
-			const box = entry?.devicePixelContentBoxSize?.[0];
-			const chart = this.chart;
-			if (!box || !chart || chart.canvas !== canvas) return;
-			const ratio = snapRatio(chart.width, chart.height, box.inlineSize, box.blockSize);
-			if (ratio === undefined || ratio === chart.options.devicePixelRatio) return;
-			chart.options.devicePixelRatio = ratio;
-			chart.resize();
-		});
-		try {
-			observer.observe(canvas, { box: 'device-pixel-content-box' });
-		} catch {
-			// Safari, and so Obsidian on iOS, has no device pixel box. Its ratios are whole numbers anyway.
-			return;
-		}
-		this.pixels = observer;
 	}
 }

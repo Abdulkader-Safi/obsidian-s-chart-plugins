@@ -31,6 +31,6 @@
 		"url": "https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins"
 	},
 	"dependencies": {
-		"chart.js": "4.5.1"
+		"echarts": "^6.1.0"
 	}
 }

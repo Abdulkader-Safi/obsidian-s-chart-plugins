@@ -119,7 +119,7 @@ test('missing type', () => {
 
 test('unknown type', () => {
 	assert.deepEqual(parse('title: x\ntype: bars\n---\n| a | b |\n| x | 1 |').errors, [
-		{ line: 2, text: 'unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar.' },
+		{ line: 2, text: 'unknown type "bars". Use bar, line, area, pie, doughnut, scatter, radar or heatmap.' },
 	]);
 });
 

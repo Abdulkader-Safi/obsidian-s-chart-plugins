@@ -31,7 +31,20 @@ To change a chart in live preview, hover over it and select the `</>` button in 
 
 ## Chart types
 
-`bar`, `line`, `area`, `pie`, `doughnut`, `scatter` and `radar`. Every chart below was drawn by the plugin in Obsidian's default theme.
+`bar`, `line`, `area`, `pie`, `doughnut`, `scatter`, `radar` and `heatmap`. Every chart below was drawn by the plugin in Obsidian's default theme.
+
+A heatmap turns the table into a grid of cells shaded by value, which suits cohort retention or activity by day and hour. Rows come from the table's rows and columns from its headers. Leave a cell empty to show a blank.
+
+```s-chart
+type: heatmap
+title: Retention by cohort (%)
+---
+| Cohort | Week 0 | Week 1 | Week 2 |
+| ------ | ------ | ------ | ------ |
+| Jan    | 100    | 62     | 48     |
+| Feb    | 100    | 65     |        |
+| Mar    | 100    |        |        |
+```
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/img/gallery-dark.png">
@@ -102,7 +115,7 @@ Notes without the `x` property are skipped, and the chart says how many. Change 
 
 ## When something is wrong
 
-A block the plugin can't read shows the line and the problem instead of a chart, for example "Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter or radar." It never leaves a blank space.
+A block the plugin can't read shows the line and the problem instead of a chart, for example "Line 1: unknown type "bars". Use bar, line, area, pie, doughnut, scatter, radar or heatmap." It never leaves a blank space.
 
 ## PDF export
 

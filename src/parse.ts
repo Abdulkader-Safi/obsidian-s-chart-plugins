@@ -1,7 +1,7 @@
 // Pure: block text to a ChartSpec plus messages. No Obsidian imports.
 import { parseNumber } from './numbers.ts';
 
-export const CHART_TYPES = ['bar', 'line', 'area', 'pie', 'doughnut', 'scatter', 'radar'] as const;
+export const CHART_TYPES = ['bar', 'line', 'area', 'pie', 'doughnut', 'scatter', 'radar', 'heatmap'] as const;
 export type ChartType = (typeof CHART_TYPES)[number];
 export type Legend = 'top' | 'bottom' | 'none';
 
@@ -144,7 +144,7 @@ export function parse(source: string): ParseResult {
 	} else {
 		errors.push({
 			line: typeEntry.line,
-			text: `unknown type "${typeEntry.value}". Use bar, line, area, pie, doughnut, scatter or radar.`,
+			text: `unknown type "${typeEntry.value}". Use bar, line, area, pie, doughnut, scatter, radar or heatmap.`,
 		});
 	}
 

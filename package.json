@@ -1,6 +1,6 @@
 {
 	"name": "s-charts",
-	"version": "0.5.0",
+	"version": "0.6.0",
 	"description": "Obsidian plugin: charts from a markdown table or note properties, in your theme colours.",
 	"main": "main.js",
 	"type": "module",
@@ -31,6 +31,6 @@
 		"url": "https://github.com/Abdulkader-Safi/obsidian-s-chart-plugins"
 	},
 	"dependencies": {
-		"chart.js": "4.5.1"
+		"echarts": "^6.1.0"
 	}
 }

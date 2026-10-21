@@ -1,21 +1,27 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { snapRatio } from '../src/config.ts';
+import { escapeHtml, toChartOption } from '../src/config.ts';
+import { parse } from '../src/parse.ts';
 
-// Same steps as Chart.js retinaScale: round to one decimal, then the canvas drops the fraction.
-const canvasSize = (css: number, r: number) => Math.trunc(Math.round(css * r * 10) / 10);
+const theme = { text: '#111', muted: '#666', border: '#ddd', background: '#fff', font: 'sans-serif' };
 
-test('snapRatio fills the screen pixel box exactly', () => {
-	const cases: [number, number, number, number][] = [[1546.5, 220, 1856, 264], [1546.5, 300, 1856, 360], [520.4, 220, 624, 264], [700, 300, 1400, 600]];
-	for (const [w, h, dw, dh] of cases) {
-		const r = snapRatio(w, h, dw, dh);
-		assert.ok(r, `no ratio for ${w}x${h}`);
-		assert.equal(canvasSize(w, r), dw);
-		assert.equal(canvasSize(h, r), dh);
-	}
+test('heatmap puts columns on x, rows on y, and skips empty cells', () => {
+	const { spec } = parse('type: heatmap\n---\n| Cohort | Week 0 | Week 1 |\n| --- | --- | --- |\n| Jan | 100 | 62 |\n| Feb | 100 |  |');
+	assert.ok(spec);
+	const option = toChartOption(spec, ['#3b82f6'], theme, false, 300) as { series: { data: unknown[] }[]; visualMap: { min: number; max: number } };
+	const cells = option.series[1]?.data.map((d) => (d as { value: number[] }).value);
+	assert.deepEqual(cells, [[0, 0, 100], [0, 1, 100], [1, 0, 62]]);
+	assert.equal(option.series[0]?.data.length, 4);
+	assert.deepEqual([option.visualMap.min, option.visualMap.max], [62, 100]);
 });
 
-test('snapRatio gives up when no single ratio fits', () => {
-	assert.equal(snapRatio(100, 100, 120, 200), undefined);
-	assert.equal(snapRatio(0, 100, 120, 120), undefined);
+test('tooltip text from the note is escaped', () => {
+	assert.equal(escapeHtml('<img src=x onerror="a()">'), '&#60;img src=x onerror=&#34;a()&#34;&#62;');
+});
+
+test('font names lose double quotes, which break the exported SVG', () => {
+	const { spec } = parse('type: bar\n---\n| A | B |\n| - | - |\n| x | 1 |');
+	assert.ok(spec);
+	const option = toChartOption(spec, ['#000'], { ...theme, font: '"Inter", sans-serif' }, false, 300) as { textStyle: { fontFamily: string } };
+	assert.equal(option.textStyle.fontFamily, "'Inter', sans-serif");
 });

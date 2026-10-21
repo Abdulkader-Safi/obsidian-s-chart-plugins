@@ -4,6 +4,11 @@
 	width: 100%;
 }
 
+.s-chart-plot {
+	width: 100%;
+	height: 100%;
+}
+
 .s-chart.is-printed {
 	height: auto;
 }
